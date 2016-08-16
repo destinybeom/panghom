@@ -1,0 +1,77 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA 생산</h2>
+<table class="type03">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">항목</th>
+        <th style="width:800px;" scope="cols">내용</th>
+    </tr>
+    </thead>
+    <tbody>
+        <form method="post" action="/erp/state/add/ftr/">{% csrf_token %}
+            <tr>
+                <th scope="row">제품S/N</th>
+                <td>
+                    <select name="ftr_psn" id="ftr_psn" >
+                        {% for psn in gayapsn %}
+                        <option value="{{psn.id}}">{{psn.psn_pro.pro_name}} | {{psn.psn_sn}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">1차시작날짜</th>
+                <td><input type="date" id="ftr_registday" name="ftr_registday" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">1차생산담당자</th>
+                <td>
+                    <select name="ftr_r_emp" id="ftr_r_emp">
+                        {% for emp in gayaemp %}
+                        <option value="{{emp.id}}">{{emp.emp_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">2차시작날짜</th>
+                <td><input type="date" id="ftr_testday" name="ftr_testday" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">2차생산담당자</th>
+                <td><input type="text" id="ftr_t_emp" name="ftr_t_emp" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">생산완료날짜</th>
+                <td><input type="date" id="ftr_completeday" name="ftr_completeday" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">생산완료담당자</th>
+                <td><input type="text" id="ftr_t_emp" name="ftr_t_emp" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">설치OS</th>
+                <td><input type="text" id="ftr_os" name="ftr_os" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">OS버전</th>
+                <td><input type="text" id="ftr_osver" name="ftr_osver" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">OS라이센스</th>
+                <td><input type="text" id="ftr_oslin" name="ftr_oslin" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">비고</th>
+                <td><textarea id="ftr_note" name="ftr_note" cols="100" rows="10" ></textarea></td>
+            </tr>
+            <tr>
+                <td colspan=2><input type="submit" value="등록" /></td>
+            </tr>
+        </form>
+    </tbody>
+</table>
+{% endblock content %}

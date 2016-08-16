@@ -1,0 +1,49 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA 자재S/N</h2>
+<table class="type03">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">항목</th>
+        <th style="width:800px;" scope="cols">내용</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row"> 자재</th>
+            <td>{{current_entry.msn_mtr.mtr_name}}</td>
+        </tr>
+        <tr>
+            <th scope="row">GAYA담당자</th>
+            <td>{{current_entry.msn_emp.emp_name}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Part Number</th>
+            <td>{{current_entry.msn_pn}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Serial Number</th>
+            <td>{{current_entry.msn_sn}}</td>
+        </tr>
+        <tr>
+            <th scope="row">상태</th>
+            <td>{{current_entry.msn_state}}</td>
+        </tr>
+        <tr>
+            <th scope="row">비고</th>
+            <td>{{current_entry.msn_note|linebreaks}}</td>
+        </tr>
+    </tbody>
+</table>
+<ul>
+    {% if prev_entry %}
+        <a href="/erp/mgmt/read/msn_read/{{prev_entry.id}}">이전 글 ()</a>
+    {% endif %}
+
+    {% if next_entry %}
+        <a href="/erp/mgmt/read/msn_read/{{next_entry.id}}">다음 글 ()</a>
+    {% endif %}
+</ul>
+{% endblock content %}

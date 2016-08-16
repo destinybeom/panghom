@@ -1,0 +1,63 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<table>
+    <tr>
+        <td width="100px"></td>
+        <td width="760px" align="center"><h2>GAYADATA 자재S/N</h2></td>
+        <td width="100px" align="right" valign="bottom"><a href="/erp/mgmt/write/msn.html">Write</a></td>
+    </tr>
+</table>
+<table class="type02">
+    <thead>
+    <tr>
+        <th style="width:60px;" scope="cols">번호</th>
+        <th style="width:150px;" scope="cols">자재분류</th>
+        <th style="width:150px;" scope="cols">자재명</th>
+        <th style="width:250px;" scope="cols">Part Number</th>
+        <th style="width:250px;" scope="cols">Serial Number</th>
+        <th style="width:100px;" scope="cols">GAYA담당자</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if gayamsn %}
+        {% for msn in gayamsn %}
+            <tr>
+                <td>{{msn.id}}</td>
+                <td>{{msn.msn_mtr.mtr_class}}</td>
+                <td>{{msn.msn_mtr.mtr_name}}</td>
+                <td>{{msn.msn_pn}}</td>
+                <td><a href="/erp/mgmt/read/msn_read/{{msn.id}}">{{msn.msn_sn}}</td>
+                <td>{{msn.msn_emp.emp_name}}</td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="6">No data...</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+<center>
+{% if total_page > 1 %}
+    {% if prev_page %}
+        <a href="/erp/mgmt/msn/{{prev_page}}">이전 </a>
+    {% endif %}
+    {% for p in page_list %}
+        {% if current_page == p %}
+            <a href="/erp/mgmt/msn/{{p}}"><font size="5"><strong>{{p}}</strong></font></a>, 
+        {% else %}
+            <a href="/erp/mgmt/msn/{{p}}">{{p}}</a>, 
+        {% endif %}
+    {% endfor %}
+        {% if current_page == total_page %}
+            ... <a href="/erp/mgmt/msn/{{total_page}}"><font size="5"><strong>{{total_page}}</strong></font></a>
+        {% else %}
+            ... <a href="/erp/mgmt/msn/{{total_page}}">{{total_page}}</a>
+        {% endif %}
+    {% if next_page %}
+        <a href="/erp/mgmt/msn/{{next_page}}"> 다음</a>
+    {% endif %}
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,58 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA 주문할당</h2>
+<table class="type03">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">항목</th>
+        <th style="width:800px;" scope="cols">내용</th>
+    </tr>
+    </thead>
+    <tbody>
+        <form method="post" action="/erp/state/add/orr/">{% csrf_token %}
+            <tr>
+                <th scope="row">제품</th>
+                <td>
+                    <select name="orr_pcr" id="orr_pcr">
+                        {% for pcr in gayapcr %}
+                        <option value="{{pcr.id}}">{{pcr.pcr_isr.isr_asr.asr_pro}} [ {{pcr.pcr_isr.isr_asr.asr_psn}} ]</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">주문</th>
+                <td>
+                    <select name="orr_ord" id="orr_ord">
+                        {% for ord in gayaord %}
+                        <option value="{{ord.id}}">{{ord.ord_title}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">제품담당자</th>
+                <td>
+                    <select name="orr_emp" id="orr_emp">
+                        {% for emp in gayaemp %}
+                        <option value="{{emp.id}}">{{emp.emp_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">비고</th>
+                <td><textarea id="orr_note" name="orr_note" cols="100" rows="10" ></textarea></td>
+            </tr>
+            <tr>
+                <td colspan=2>
+                    <input type="hidden" id="orr_author" name="orr_author" value="{{user.emp_name}}" />
+                    <input type="submit" value="할당완료" />
+                </td>
+            </tr>
+        </form>
+    </tbody>
+</table>
+{% endblock content %}

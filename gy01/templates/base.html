@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!--대문 페이지-->
+<head>
+    {% load static %}
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    <title>{% block title %}GAYADATA{% endblock %}</title>
+</head>
+
+<body>
+    <center>
+    <table width="601px" align="center" valign="center">
+        <tr>
+            <td align="center"><a href="/"><img src="{% static "gaya.gif" %}" /></a></td>
+        </tr>
+    </table>
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+    <footer>
+        <img src="{% static "footer.gif" %}">
+    </footer>
+</body>
+</html>

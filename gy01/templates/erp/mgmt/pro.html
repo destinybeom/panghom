@@ -1,0 +1,57 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<table>
+    <tr>
+        <td width="100px"></td>
+        <td width="760px" align="center"><h2>GAYADATA 제품</h2></td>
+        <td width="100px" align="right" valign="bottom"><!--<a href="/erp/mgmt/write/pro.html">Write</a>--></td>
+    </tr>
+</table>
+<table class="type02">
+    <thead>
+    <tr>
+        <th style="width:200px;" scope="cols">구분</th>
+        <th style="width:460px;" scope="cols">제품명</th>
+        <th style="width:300px;" scope="cols">담당자</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if gayapro %}
+        {% for pro in gayapro %}
+            <tr>
+                <td>{{pro.pro_class}}</td>
+                <td><a href="/erp/mgmt/{{pro.pro_name}}.html">{{pro.pro_name}}</td>
+                <td>{{pro.pro_emp.emp_name}}</td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="4">No data...</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+<center>
+{% if total_page > 1 %}
+    {% if prev_page %}
+        <a href="/erp/mgmt/pro/{{prev_page}}">이전 </a>
+    {% endif %}
+    {% for p in page_list %}
+        {% if current_page == p %}
+            <a href="/erp/mgmt/pro/{{p}}"><font size="5"><strong>{{p}}</strong></font></a>,
+        {% else %}
+            <a href="/erp/mgmt/pro/{{p}}">{{p}}</a>,
+        {% endif %}
+    {% endfor %}
+        {% if current_page == total_page %}
+            ... <a href="/erp/mgmt/pro/{{total_page}}"><font size="5"><strong>{{total_page}}</strong></font></a>
+        {% else %}
+            ... <a href="/erp/mgmt/pro/{{total_page}}">{{total_page}}</a>
+        {% endif %}
+    {% if next_page %}
+        <a href="/erp/mgmt/pro/{{next_page}}"> 다음</a>
+    {% endif %}
+{% endif %}
+{% endblock content %}

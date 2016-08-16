@@ -1,0 +1,42 @@
+from django import forms
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import User
+
+from erp import models
+
+# Register your models here.
+class GayaEmpInline(admin.StackedInline):
+    model = models.GayaEmp
+    can_delete = False
+    verbose_name_plural = 'gayaemp'
+
+# Define a new User admin
+class UserAdmin(BaseUserAdmin):
+    inlines = (GayaEmpInline, )
+
+# Re-register UserAdmin
+
+try:
+    admin.site.unregister(User)
+except:
+    admin.site.register(User, UserAdmin)
+admin.site.register(models.GayaCustomer)
+admin.site.register(models.GayaProductInfo)
+admin.site.register(models.GayaMaterialInfo)
+admin.site.register(models.GayaMaterialSN)
+admin.site.register(models.GayaOrder)
+admin.site.register(models.HA201_TP)
+admin.site.register(models.HA201TPFactoryReport)
+admin.site.register(models.HA201TPOrderReport)
+admin.site.register(models.HA201TPDeliveryReport)
+admin.site.register(models.GayaSptLinux)
+admin.site.register(models.GayaSptWindows)
+admin.site.register(models.GayaSptServer)
+admin.site.register(models.GayaSptStorage)
+admin.site.register(models.GayaSptSwitch)
+admin.site.register(models.GayaSptDev)
+admin.site.register(models.GayaSclCommon)
+admin.site.register(models.GayaSclFree)
+admin.site.register(models.GayaSclRecommend)
+admin.site.register(models.GayaSclQanda)

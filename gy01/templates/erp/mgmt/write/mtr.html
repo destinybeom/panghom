@@ -1,0 +1,95 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA 자재</h2>
+<table class="type03">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">항목</th>
+        <th style="width:800px;" scope="cols">내용</th>
+    </tr>
+    </thead>
+    <tbody>
+        <form method="post" action="/erp/mgmt/add/mtr/">{% csrf_token %}
+            <tr>
+                <th scope="row">분류</th>
+                <td>
+                    <input type="radio" value="Chassis" id="mtr_class" name="mtr_class" checked="checked" />Chassis
+                    <input type="radio" value="Disk_Backplane" id="mtr_class" name="mtr_class" />Disk_Backplane
+                    <input type="radio" value="Interposer" id="mtr_class" name="mtr_class" />Interposer
+                    <input type="radio" value="SSD" id="mtr_class" name="mtr_class" />SSD
+                    <input type="radio" value="Power_Housing" id="mtr_class" name="mtr_class" />Power_Housing<br />
+                    <input type="radio" value="Power_Supply" id="mtr_class" name="mtr_class" />Power_Supply
+                    <input type="radio" value="CPU" id="mtr_class" name="mtr_class" />CPU
+                    <input type="radio" value="DRAM" id="mtr_class" name="mtr_class" />DRAM
+                    <input type="radio" value="Mainboard" id="mtr_class" name="mtr_class" />Mainboard<br />
+                    <input type="radio" value="RMM4_light" id="mtr_class" name="mtr_class" />RMM4_Light
+                    <input type="radio" value="SATADOM" id="mtr_class" name="mtr_class" />SATADOM
+                    <input type="radio" value="Expander_Board" id="mtr_class" name="mtr_class" />Expander_Board
+                    <input type="radio" value="Riser_Card_Left" id="mtr_class" name="mtr_class" />Riser_Card_Left<br />
+                    <input type="radio" value="FC_HBA" id="mtr_class" name="mtr_class" />FC_HBA
+                    <input type="radio" value="Riser_Card_Right" id="mtr_class" name="mtr_class" />Riser_Card_Right
+                    <input type="radio" value="Host_Bus_Adapter" id="mtr_class" name="mtr_class" />Host_Bus_Adapter
+                    <input type="radio" value="NTB" id="mtr_class" name="mtr_class" />NTB<br />
+                    <input type="radio" value="NVRAM" id="mtr_class" name="mtr_class" />NVRAM
+                    <input type="radio" value="FAN" id="mtr_class" name="mtr_class" />FAN             
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">자재명</th>
+                <td><input type="text" id="mtr_name" name="mtr_name" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">자재정보</th>
+                <td><textarea id="mtr_desc" name="mtr_desc" cols="100" rows="5" ></textarea></td>
+            </tr>
+            <tr>
+                <th scope="row">구입수량</th>
+                <td><input type="text" id="mtr_total" name="mtr_total" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">제조사</th>
+                <td><input type="text" id="mtr_maker" name="mtr_maker" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">구입처</th>
+                <td><input type="text" id="mtr_purchase" name="mtr_purchase" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">구입날짜</th>
+                <td><input type="date" id="mtr_purchaseday" name="mtr_purchaseday" size="60" maxlength="60" />ex)yyyy-mm-dd</td>
+            </tr>
+            <tr>
+                <th scope="row">보관장소</th>
+                <td>
+                    <input type="radio" value="진주" id="mtr_repository" name="mtr_repository" checked="checked"/>진주
+                    <input type="radio" value="서울" id="mtr_repository" name="mtr_repository" />서울
+                    <input type="radio" value="기타" id="mtr_repository" name="mtr_repository" />기타       
+                    <input type="text" id="mtr_rpst" name="mtr_rpst" size="30" maxlength="30" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">GAYA담당자</th>
+                <td>
+                    <select name="mtr_emp" id="mtr_emp">
+                        {% for emp in gayaemp %}
+                        <option value="{{emp.id}}">{{emp.emp_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">비고</th>
+                <td><textarea id="mtr_note" name="mtr_note" cols="100" rows="10" ></textarea></td>
+            </tr>
+            <tr>
+                <td colspan=2>
+                    <input type="hidden" id="mtr_author" name="mtr_author" value="{{user.emp_name}}" />
+                    <input type="submit" value="등록" />
+                </td>
+            </tr>
+        </form>
+    </tbody>
+</table>
+{% endblock content %}

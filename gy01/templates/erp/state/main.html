@@ -1,0 +1,39 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<table width="960px" align="center">
+    <tr><td>
+            <ul id="red">
+                <li class="current"><strong>현황</strong><span></span></li>
+                <li><a href="/erp/state/ord.html" title="">주문<span>주문현황을 확인할 수 있습니다.</span></a></li>
+                <li><a href="/erp/state/pro.html" title="">제품<span>제품현황을 확인할 수 있습니다.</span></a></li>
+                <li><a href="/erp/state/mtr.html" title="">자재<span>자재현황을 확인할 수 있습니다.</span></a></li>
+                <li class="current">등록<span></span></li>
+                <li><a href="/erp/state/write/ftr.html" title="">생산시작<span>자재가 등록된 제품의 생산을 시작합니다.</span></a></li>
+                <li><a href="/erp/state/write/ftr.html" title="">검증완료<span>자재가 등록된 제품의 검증을 완료합니다.</span></a></li>
+                <li><a href="/erp/state/write/ftr.html" title="">생산완료<span>자재가 등록된 제품의 생산을 완료합니다.</span></a></li>
+                <li><a href="/erp/state/write/orr.html" title="">주문할당<span>생산이 완료된 제품을 주문에 할당합니다.</span></a></li>
+                <li><a href="/erp/state/write/dlr.html" title="">출고완료<span>주문이 할당된 제품의 출고를 완료합니다.</span></a></li>
+            </ul>
+    </td></tr>
+</table>
+<center>
+<h2>GAYADATA 현황</h2>
+<table class="type01">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">메뉴</th>
+        <th style="width:800px;" scope="cols">정보</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for scc in gayascc %}
+        <tr>
+            <td>{{scc.id}}</td>
+            <td>{{scc.scc_title}}</td>
+            <td>{{scc.scc_name}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

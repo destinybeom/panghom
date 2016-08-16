@@ -1,0 +1,56 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA Storage</h2>
+<table class="type03">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">항목</th>
+        <th style="width:800px;" scope="cols">내용</th>
+    </tr>
+    </thead>
+    <tbody>
+        <form method="post" action="/erp/support/add/stt/" enctype="multipart/form-data">{% csrf_token %}
+            <tr>
+                <th scope="row">제목</th>
+                <td><input type="text" id="stt_title" name="stt_title" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">작성자</th>
+                <td><input type="text" id="stt_name" name="stt_name" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">비밀번호</th>
+                <td><input type="password" id="stt_pw" name="stt_pw" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">내용</th>
+                <td><textarea id="stt_contents" name="stt_contents" cols="100" rows="10" ></textarea></td>
+            </tr>
+            <tr>
+                <th scope="row">파일</th>
+                <td><input type="file" id="stt_file01" name="stt_file01" /></br>
+                    <input type="file" id="stt_file02" name="stt_file02" /></br>
+                    <input type="file" id="stt_file03" name="stt_file03" /></br>
+                    <input type="file" id="stt_file04" name="stt_file04" /></br>
+                    <input type="file" id="stt_file05" name="stt_file05" /></td>
+            </tr>
+            <tr>
+                <th scope="row">이미지</th>
+                <td><input type="file" id="stt_img01" name="stt_img01" /></br>
+                    <input type="file" id="stt_img02" name="stt_img02" /></br>
+                    <input type="file" id="stt_img03" name="stt_img03" /></br>
+                    <input type="file" id="stt_img04" name="stt_img04" /></br>
+                    <input type="file" id="stt_img05" name="stt_img05" /></td>
+            </tr>
+            <tr>
+                <td colspan=2>
+                    <input type="hidden" id="stt_author" name="stt_author" value="{{user.emp_name}}" />
+                    <input type="submit" value="등록" />
+                </td>
+            </tr>
+        </form>
+    </tbody>
+</table>
+{% endblock content %}

@@ -1,0 +1,61 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<table>
+    <tr>
+        <td width="100px"></td>
+        <td width="760px" align="center"><h2>GAYADATA HA201_TP</h2></td>
+        <td width="100px" align="right" valign="bottom"><a href="/erp/mgmt/write/ha201_tp.html">Write</a></td>
+    </tr>
+</table>
+<table class="type02">
+    <thead>
+    <tr>
+        <th style="width:60px;" scope="cols">번호</th>
+        <th style="width:200px;" scope="cols">제품명</th>
+        <th style="width:250px;" scope="cols">Part Number</th>
+        <th style="width:250px;" scope="cols">Serial Number</th>
+        <th style="width:200px;" scope="cols">담당자</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if ha201tp %}
+        {% for pro in ha201tp %}
+            <tr>
+                <td>{{pro.id}}</td>
+                <td>HA201_TP</td>
+                <td>{{pro.pro_pn}}</td>
+                <td><a href="/erp/mgmt/read/ha201_tp_read/{{pro.id}}">HA201_TP | {{pro.pro_sn}}</td>
+                <td>{{pro.pro_emp.emp_name}}</td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan=5>No data...</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+<center>
+{% if total_page > 1 %}
+    {% if prev_page %}
+        <a href="/erp/mgmt/HA201_TP/{{prev_page}}">이전 </a>
+    {% endif %}
+    {% for p in page_list %}
+        {% if current_page == p %}
+            <a href="/erp/mgmt/HA201_TP/{{p}}"><font size="5"><strong>{{p}}</strong></font></a>,
+        {% else %}
+            <a href="/erp/mgmt/HA201_TP/{{p}}">{{p}}</a>,
+        {% endif %}
+    {% endfor %}
+        {% if current_page == total_page %}
+            ... <a href="/erp/mgmt/HA201_TP/{{total_page}}"><font size="5"><strong>{{total_page}}</strong></font></a>
+        {% else %}
+            ... <a href="/erp/mgmt/HA201_TP/{{total_page}}">{{total_page}}</a>
+        {% endif %}
+    {% if next_page %}
+        <a href="/erp/mgmt/HA201_TP/{{next_page}}"> 다음</a>
+    {% endif %}
+{% endif %}
+{% endblock content %}

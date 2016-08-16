@@ -1,0 +1,282 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA HA201_TP</h2>
+<table class="type03">
+    <thead>
+    <tr>
+        <th style="width:150px;" scope="cols">구분</th>
+        <th style="width:150px;" scope="cols">항목</th>
+        <th style="width:160px;" scope="cols">제조사</th>
+        <th style="width:250px;" scope="cols">Part Number</th>
+        <th style="width:250px;" scope="cols">Serial Number</th>
+    </tr>
+    </thead>
+    <tbody>
+        <form method="post" action="/erp/mgmt/add/ha201_tp/">{% csrf_token %}
+            <tr><td colspan="5" align="center"><font color="red">!입력한 값이 틀린 것이 있습니다. (x)를 확인하십시오!</font></td></tr>
+            <tr>
+                <td rowspan="6">Server</td>
+                <th scope="row">Chassis</th>
+                <td>AIC</td>
+                <td><input type="text" id="pro_pn" name="pro_pn" value="{{pro_pn}}" size="30" maxlength="40" /></td>
+                <td><input type="text" id="pro_sn" name="pro_sn" value="{{pro_sn}}" size="30" maxlength="40" /></td>
+            </tr>
+            <tr>
+                <th scope="row">Disk Backplane</th>
+                <td>AIC</td>
+                <td><input type="text" id="disk_backplane_pn" name="disk_backplane_pn" value="{{pro_pout.0}}" size="30" maxlength="40" /></td>
+                <td><input type="text" id="disk_backplane_sn" name="disk_backplane_sn" value="{{pro_sout.0}}" size="30" maxlength="40" /></td>
+            </tr>
+            <tr>
+                <th scope="row">Interposer</th>
+                <td>LSI</td>
+                <td><textarea id="interposer_pn" name="interposer_pn" cols="30" rows="10" >
+                        {{pro_pout.1}}, {{pro_pout.2}}, {{pro_pout.3}}, {{pro_pout.4}}, {{pro_pout.5}}, {{pro_pout.6}},
+                        {{pro_pout.7}}, {{pro_pout.8}}, {{pro_pout.9}}, {{pro_pout.10}}, {{pro_pout.11}}, {{pro_pout.12}},
+                        {{pro_pout.13}}, {{pro_pout.14}}, {{pro_pout.15}}, {{pro_pout.16}}, {{pro_pout.17}}, {{pro_pout.18}},
+                        {{pro_pout.19}}, {{pro_pout.20}}, {{pro_pout.21}}, {{pro_pout.22}}, {{pro_pout.23}}, {{pro_pout.24}}
+                </textarea></td>
+                <td><textarea id="interposer_sn" name="interposer_sn" cols="30" rows="10" >
+                        {{pro_sout.1}}, {{pro_sout.2}}, {{pro_sout.3}}, {{pro_sout.4}}, {{pro_sout.5}}, {{pro_sout.6}},
+                        {{pro_sout.7}}, {{pro_sout.8}}, {{pro_sout.9}}, {{pro_sout.10}}, {{pro_sout.11}}, {{pro_sout.12}},
+                        {{pro_sout.13}}, {{pro_sout.14}}, {{pro_sout.15}}, {{pro_sout.16}}, {{pro_sout.17}}, {{pro_sout.18}},
+                        {{pro_sout.19}}, {{pro_sout.20}}, {{pro_sout.21}}, {{pro_sout.22}}, {{pro_sout.23}}, {{pro_sout.24}}
+                </textarea></td>
+            </tr>
+            <tr>
+                <th scope="row">SSD</th>
+                <td>SK</td>
+                <td><textarea id="ssd_pn" name="ssd_pn" cols="30" rows="10" >
+                        {{pro_pout.25}}, {{pro_pout.26}}, {{pro_pout.27}}, {{pro_pout.28}}, {{pro_pout.29}}, {{pro_pout.30}},
+                        {{pro_pout.31}}, {{pro_pout.32}}, {{pro_pout.33}}, {{pro_pout.34}}, {{pro_pout.35}}, {{pro_pout.36}},
+                        {{pro_pout.37}}, {{pro_pout.38}}, {{pro_pout.39}}, {{pro_pout.40}}, {{pro_pout.41}}, {{pro_pout.42}},
+                        {{pro_pout.43}}, {{pro_pout.44}}, {{pro_pout.45}}, {{pro_pout.46}}, {{pro_pout.47}}, {{pro_pout.48}}
+                </textarea></td>
+                <td><textarea id="ssd_sn" name="ssd_sn" cols="30" rows="10" >
+                        {{pro_sout.25}}, {{pro_sout.26}}, {{pro_sout.27}}, {{pro_sout.28}}, {{pro_sout.29}}, {{pro_sout.30}},
+                        {{pro_sout.31}}, {{pro_sout.32}}, {{pro_sout.33}}, {{pro_sout.34}}, {{pro_sout.35}}, {{pro_sout.36}},
+                        {{pro_sout.37}}, {{pro_sout.38}}, {{pro_sout.39}}, {{pro_sout.40}}, {{pro_sout.41}}, {{pro_sout.42}},
+                        {{pro_sout.43}}, {{pro_sout.44}}, {{pro_sout.45}}, {{pro_sout.46}}, {{pro_sout.47}}, {{pro_sout.48}}
+                </textarea></td>
+            </tr>
+            <tr>
+                <th scope="row">Power Housing</th>
+                <td>EMACS</td>
+                <td><input type="text" id="power_housing_pn" name="power_housing_pn" value="{{pro_pout.49}}" size="30" maxlength="40" /></td>
+                <td><input type="text" id="power_housing_sn" name="power_housing_sn" value="{{pro_sout.49}}" size="30" maxlength="40" /></td>
+            </tr>
+            <tr>
+                <th scope="row">Power Supply</th>
+                <td>EMACS</td>
+                <td><textarea id="power_supply_pn" name="power_supply_pn" cols="30" rows="2" >{{pro_pout.50}}, {{pro_pout.51}}</textarea></td>
+                <td><textarea id="power_supply_sn" name="power_supply_sn" cols="30" rows="2" >{{pro_sout.50}}, {{pro_sout.51}}</textarea></td>
+            </tr>
+            <tr>
+                <td rowspan="14">Primary</br>Compute</br>Node</td>
+                <th scope="row">Chassis</th>
+                <td>AIC</td>
+                <td><input type="text" id="p_chassis_pn" name="p_chassis_pn" value="{{pro_pout.52}}" size="30" maxlength="40" /></td>
+                <td><input type="text" id="p_chassis_sn" name="p_chassis_sn" value="{{pro_sout.52}}" size="30" maxlength="40" /></td>
+            </tr>
+            <tr>
+                <th scope="row">CPU</th>
+                <td>Intel</td>
+                <td><textarea id="p_cpu_pn" name="p_cpu_pn" cols="30" rows="2" >{{pro_pout.53}}, {{pro_pout.54}}</textarea></td>
+                <td><textarea id="p_cpu_sn" name="p_cpu_sn" cols="30" rows="2" >{{pro_sout.53}}, {{pro_sout.54}}</textarea></td>
+            </tr>
+            <tr>
+                <th scope="row">DRAM</th>
+                <td>SK Hynix</td>
+                <td><textarea id="p_dram_pn" name="p_dram_pn" cols="30" rows="5" >
+                        {{pro_pout.55}}, {{pro_pout.56}}, {{pro_pout.57}}, {{pro_pout.58}},
+                        {{pro_pout.59}}, {{pro_pout.60}}, {{pro_pout.61}}, {{pro_pout.62}}
+                </textarea></td>
+                <td><textarea id="p_dram_sn" name="p_dram_sn" cols="30" rows="5" >
+                        {{pro_sout.55}}, {{pro_sout.56}}, {{pro_sout.57}}, {{pro_sout.58}},
+                        {{pro_sout.59}}, {{pro_sout.60}}, {{pro_sout.61}}, {{pro_sout.62}}
+                </textarea></td>
+            </tr>
+            <tr>
+                <th scope="row">Mainboard</th>
+                <td>Intel</td>
+                <td><input type="text" id="p_mainboard_pn" name="p_mainboard_pn" value="{{pro_pout.63}}" size="30" maxlength="40" /></td>
+                <td><input type="text" id="p_mainboard_sn" name="p_mainboard_sn" value="{{pro_sout.63}}" size="30" maxlength="40" /></td>
+            </tr>
+            <tr>
+                <th scope="row">RMM4 Light</th>
+                <td>Intel</td>
+                <td><input type="text" id="p_rmm4_light_pn" name="p_rmm4_light_pn" value="{{pro_pout.64}}" size="30" maxlength="40" /></td>
+                <td><input type="text" id="p_rmm4_light_sn" name="p_rmm4_light_sn" value="{{pro_sout.64}}" size="30" maxlength="40" /></td>
+            </tr>
+            <tr>
+                <th scope="row">SATADOM</th>
+                <td>Innodisk</td>
+                <td><textarea id="p_satadom_pn" name="p_satadom_pn" cols="30" rows="2" >{{pro_pout.65}}, {{pro_pout.66}}</textarea></td>
+                <td><textarea id="p_satadom_sn" name="p_satadom_sn" cols="30" rows="2" >{{pro_sout.65}}, {{pro_sout.66}}</textarea></td>
+            </tr>
+            <tr>
+                <th scope="row">Expander Board</th>
+                <td>AIC</td>
+                <td><input type="text" id="p_expander_board_pn" name="p_expander_board_pn" value="{{pro_pout.67}}" size="30" maxlength="40" /></td>
+                <td><input type="text" id="p_expander_board_sn" name="p_expander_board_sn" value="{{pro_sout.67}}" size="30" maxlength="40" /></td>
+            </tr>
+            <tr>
+                <th scope="row">Riser Card(Left)</th>
+                <td>AIC</td>
+                <td><textarea id="p_riser_card_l_pn" name="p_riser_card_l_pn" cols="30" rows="2" >{{pro_pout.68}}, {{pro_pout.69}}</textarea></td>
+                <td><textarea id="p_riser_card_l_sn" name="p_riser_card_l_sn" cols="30" rows="2" >{{pro_sout.68}}, {{pro_sout.69}}</textarea></td>
+            </tr>
+            <tr>
+                <th scope="row">FC HBA</th>
+                <td>QLogic</td>
+                <td><textarea id="p_fc_hba_pn" name="p_fc_hba_pn" cols="30" rows="2" >{{pro_pout.70}}, {{pro_pout.71}}</textarea></td>
+                <td><textarea id="p_fc_hba_sn" name="p_fc_hba_sn" cols="30" rows="2" >{{pro_sout.70}}, {{pro_sout.71}}</textarea></td>
+            </tr>
+            <tr>
+                <th scope="row">Riser Card(Right)</th>
+                <td>AIC</td>
+                <td><input type="text" id="p_riser_card_r_pn" name="p_riser_card_r_pn" value="{{pro_pout.72}}" size="30" maxlength="40" /></td>
+                <td><input type="text" id="p_riser_card_r_sn" name="p_riser_card_r_sn" value="{{pro_sout.72}}" size="30" maxlength="40" /></td>
+            </tr>
+            <tr>
+                <th scope="row">Host Bus Adapter</th>
+                <td>LSI</td>
+                <td><input type="text" id="p_host_bus_adapter_pn" name="p_host_bus_adapter_pn" value="{{pro_pout.73}}" size="30" maxlength="40" /></td>
+                <td><input type="text" id="p_host_bus_adapter_sn" name="p_host_bus_adapter_sn" value="{{pro_sout.73}}" size="30" maxlength="40" /></td>
+            </tr>
+            <tr>
+                <th scope="row">NTB</th>
+                <td>AIC</td>
+                <td><input type="text" id="p_ntb_pn" name="p_ntb_pn" value="{{pro_pout.74}}" size="30" maxlength="40" /></td>
+                <td><input type="text" id="p_ntb_sn" name="p_ntb_sn" value="{{pro_sout.74}}" size="30" maxlength="40" /></td>
+            </tr>
+            <tr>
+                <th scope="row">NVRAM</th>
+                <td>Netlist</td>
+                <td><input type="text" id="p_nvram_pn" name="p_nvram_pn" value="{{pro_pout.75}}" size="30" maxlength="40" /></td>
+                <td><input type="text" id="p_nvram_sn" name="p_nvram_sn" value="{{pro_sout.75}}" size="30" maxlength="40" /></td>
+            </tr>
+            <tr>
+                <th scope="row">FAN</th>
+                <td>SANYO DENKI</td>
+                <td><textarea id="p_fan_pn" name="p_fan_pn" cols="30" rows="2" >{{pro_pout.76}}, {{pro_pout.77}}</textarea></td>
+                <td><textarea id="p_fan_sn" name="p_fan_sn" cols="30" rows="2" >{{pro_sout.76}}, {{pro_sout.77}}</textarea></td>
+            </tr>
+            <tr>
+                <td rowspan="14">Secondary</br>Compute</br>Node</td>
+                <th scope="row">Chassis</th>
+                <td>AIC</td>
+                <td><input type="text" id="s_chassis_pn" name="s_chassis_pn" value="{{pro_pout.78}}" size="30" maxlength="40" /></td>
+                <td><input type="text" id="s_chassis_sn" name="s_chassis_sn" value="{{pro_sout.78}}" size="30" maxlength="40" /></td>
+            </tr>
+            <tr>
+                <th scope="row">CPU</th>
+                <td>Intel</td>
+                <td><textarea id="s_cpu_pn" name="s_cpu_pn" cols="30" rows="2" >{{pro_pout.79}}, {{pro_pout.80}}</textarea></td>
+                <td><textarea id="s_cpu_sn" name="s_cpu_sn" cols="30" rows="2" >{{pro_sout.79}}, {{pro_sout.80}}</textarea></td>
+            </tr>
+            <tr>
+                <th scope="row">DRAM</th>
+                <td>SK Hynix</td>
+                <td><textarea id="s_dram_pn" name="s_dram_pn" cols="30" rows="5" >
+                        {{pro_pout.81}}, {{pro_pout.82}},  {{pro_pout.83}}, {{pro_pout.84}},
+                        {{pro_pout.85}}, {{pro_pout.86}},  {{pro_pout.87}}, {{pro_pout.88}}
+                </textarea></td>
+                <td><textarea id="s_dram_sn" name="s_dram_sn" cols="30" rows="5" >
+                        {{pro_sout.81}}, {{pro_sout.82}},  {{pro_sout.83}}, {{pro_sout.84}},
+                        {{pro_sout.85}}, {{pro_sout.86}},  {{pro_sout.87}}, {{pro_sout.88}}
+                </textarea></td>
+            </tr>
+            <tr>
+                <th scope="row">Mainboard</th>
+                <td>Intel</td>
+                <td><input type="text" id="s_mainboard_pn" name="s_mainboard_pn" value="{{pro_pout.89}}" size="30" maxlength="40" /></td>
+                <td><input type="text" id="s_mainboard_sn" name="s_mainboard_sn" value="{{pro_sout.89}}" size="30" maxlength="40" /></td>
+            </tr>
+            <tr>
+                <th scope="row">RMM4 Light</th>
+                <td>Intel</td>
+                <td><input type="text" id="s_rmm4_light_pn" name="s_rmm4_light_pn" value="{{pro_pout.90}}" size="30" maxlength="40" /></td>
+                <td><input type="text" id="s_rmm4_light_sn" name="s_rmm4_light_sn" value="{{pro_sout.90}}" size="30" maxlength="40" /></td>
+            </tr>
+            <tr>
+                <th scope="row">SATADOM</th>
+                <td>Innodisk</td>
+                <td><textarea id="s_satadom_pn" name="s_satadom_pn" cols="30" rows="2" >{{pro_pout.91}}, {{pro_pout.92}}</textarea></td>
+                <td><textarea id="s_satadom_sn" name="s_satadom_sn" cols="30" rows="2" >{{pro_sout.91}}, {{pro_sout.92}}</textarea></td>
+            </tr>
+            <tr>
+                <th scope="row">Expander Board</th>
+                <td>AIC</td>
+                <td><input type="text" id="s_expander_board_pn" name="s_expander_board_pn" value="{{pro_pout.93}}" size="30" maxlength="40" /></td>
+                <td><input type="text" id="s_expander_board_sn" name="s_expander_board_sn" value="{{pro_sout.93}}" size="30" maxlength="40" /></td>
+            </tr>
+            <tr>
+                <th scope="row">Riser Card(Left)</th>
+                <td>AIC</td>
+                <td><textarea id="s_riser_card_l_pn" name="s_riser_card_l_pn" cols="30" rows="2" >{{pro_pout.94}}, {{pro_pout.95}}</textarea></td>
+                <td><textarea id="s_riser_card_l_sn" name="s_riser_card_l_sn" cols="30" rows="2" >{{pro_sout.94}}, {{pro_sout.95}}</textarea></td>
+            </tr>
+            <tr>
+                <th scope="row">FC HBA</th>
+                <td>QLogic</td>
+                <td><textarea id="s_fc_hba_pn" name="s_fc_hba_pn" cols="30" rows="2" >{{pro_pout.96}}, {{pro_pout.97}}</textarea></td>
+                <td><textarea id="s_fc_hba_sn" name="s_fc_hba_sn" cols="30" rows="2" >{{pro_sout.96}}, {{pro_sout.97}}</textarea></td>
+            </tr>
+            <tr>
+                <th scope="row">Riser Card(Right)</th>
+                <td>AIC</td>
+                <td><input type="text" id="s_riser_card_r_pn" name="s_riser_card_r_pn" value="{{pro_pout.98}}" size="30" maxlength="40" /></td>
+                <td><input type="text" id="s_riser_card_r_sn" name="s_riser_card_r_sn" value="{{pro_sout.98}}" size="30" maxlength="40" /></td>
+            </tr>
+            <tr>
+                <th scope="row">Host Bus Adapter</th>
+                <td>LSI</td>
+                <td><input type="text" id="s_host_bus_adapter_pn" name="s_host_bus_adapter_pn" value="{{pro_pout.99}}" size="30" maxlength="40" /></td>
+                <td><input type="text" id="s_host_bus_adapter_sn" name="s_host_bus_adapter_sn" value="{{pro_sout.99}}" size="30" maxlength="40" /></td>
+            </tr>
+            <tr>
+                <th scope="row">NTB</th>
+                <td>AIC</td>
+                <td><input type="text" id="s_ntb_pn" name="s_ntb_pn" value="{{pro_pout.100}}" size="30" maxlength="40" /></td>
+                <td><input type="text" id="s_ntb_sn" name="s_ntb_sn" value="{{pro_sout.100}}" size="30" maxlength="40" /></td>
+            </tr>
+            <tr>
+                <th scope="row">NVRAM</th>
+                <td>Netlist</td>
+                <td><input type="text" id="s_nvram_pn" name="s_nvram_pn" value="{{pro_pout.101}}" size="30" maxlength="40" /></td>
+                <td><input type="text" id="s_nvram_sn" name="s_nvram_sn" value="{{pro_sout.101}}" size="30" maxlength="40" /></td>
+            </tr>
+            <tr>
+                <th scope="row">FAN</th>
+                <td>SANYO DENKI</td>
+                <td><textarea id="s_fan_pn" name="s_fan_pn" cols="30" rows="2" >{{pro_pout.102}}, {{pro_pout.103}}</textarea></td>
+                <td><textarea id="s_fan_sn" name="s_fan_sn" cols="30" rows="2" >{{pro_sout.102}}, {{pro_sout.103}}</textarea></td>
+            </tr>
+            <tr>
+                <td rowspan="2">비고</td>
+                <th scope="row">GAYA담당자</th>
+                <td colspan="3">
+                    <select name="pro_emp" id="pro_emp">
+                        <option value="{{pro_emp.id}}">{{pro_emp.emp_name}}</option>
+                        {% for emp in gayaemp %}
+                        <option value="{{emp.id}}">{{emp.emp_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4"><textarea id="pro_note" name="pro_note" cols="100" rows="5" >{{pro_note}}</textarea></td>
+            </tr>
+            <tr>
+                <td colspan="5" align="center">
+                    <input type="hidden" id="pro_author" name="pro_author" value="{{user.emp_name}}" />
+                    <input type="submit" value="등록" />
+                </td>
+            </tr>
+        </form>
+    </tbody>
+</table>
+{% endblock content %}

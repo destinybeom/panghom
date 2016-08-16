@@ -1,0 +1,516 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA 자재현황</h2>
+<HR width="960px" size="3">
+<table class="type01">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols" rowspan="3">구분</th>
+        <th style="width:250px;" scope="cols">자재명</th>
+        <th style="width:250px;" scope="cols">제조사</th>
+        <th style="width:150px;" scope="cols">담당자</th>
+        <th style="width:150px;" scope="cols">구매수량</th>
+    </tr>
+    <tr>
+        <th style="width:250px;" scope="cols">등록수량</th>
+        <th style="width:250px;" scope="cols">미등록수량</th>
+        <th style="width:300px;" scope="cols" colspan="2">출고수량</th>
+    </tr>
+    <tr>
+        <th align="center" style="width:250px;" scope="cols" colspan="4">자재 사용 제품 목록</th>
+    </tr>
+    </thead>
+    <tbody>
+        <!--HA201_TP에 사용되는 자재의 정보를 표시-->
+        <tr>
+            <td rowspan="3">Disk_Backplane</td>
+            <td>{{Disk_Backplane.4.0.msn_mtr.mtr_name}}</td>
+            <td>{{Disk_Backplane.4.0.msn_mtr.mtr_maker}}</td>
+            <td>{{Disk_Backplane.4.0.msn_mtr.mtr_emp.emp_name}}</td>
+            <td>{{Disk_Backplane.0}}</td>
+        </tr>
+        <tr>
+            <td>{{Disk_Backplane.1}}</td>
+            <td>{{Disk_Backplane.2}}</td>
+            <td colspan="2">{{Disk_Backplane.3}}</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                자재 사용 제품
+                </a><div style="DISPLAY: none">
+                {% if Disk_Backplane.1 != 0 %}
+                    {% for msn in Disk_Backplane.4 %}
+                        <span>{{msn.msn_pro}}[{{msn.msn_psn}}], </span>
+                    {% endfor %}
+                {% else %}
+                    <span>No Data...</span>
+                {% endif %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3">Interposer</td>
+            <td>{{Interposer.4.0.msn_mtr.mtr_name}}</td>
+            <td>{{Interposer.4.0.msn_mtr.mtr_maker}}</td>
+            <td>{{Interposer.4.0.msn_mtr.mtr_emp.emp_name}}</td>
+            <td>{{Interposer.0}}</td>
+        </tr>
+        <tr>
+            <td>{{Interposer.1}}</td>
+            <td>{{Interposer.2}}</td>
+            <td colspan="2">{{Interposer.3}}</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                자재 사용 제품
+                </a><div style="DISPLAY: none">
+                {% if Interposer.1 != 0 %}
+                    {% for msn in Interposer.4 %}
+                        <span>{{msn.msn_pro}}[{{msn.msn_psn}}], </span>
+                    {% endfor %}
+                {% else %}
+                    <span>No Data...</span>
+                {% endif %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3">SSD</td>
+            <td>{{SSD.4.0.msn_mtr.mtr_name}}</td>
+            <td>{{SSD.4.0.msn_mtr.mtr_maker}}</td>
+            <td>{{SSD.4.0.msn_mtr.mtr_emp.emp_name}}</td>
+            <td>{{SSD.0}}</td>
+        </tr>
+        <tr>
+            <td>{{SSD.1}}</td>
+            <td>{{SSD.2}}</td>
+            <td colspan="2">{{SSD.3}}</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                자재 사용 제품
+                </a><div style="DISPLAY: none">
+                {% if SSD.1 != 0 %}
+                    {% for msn in SSD.4 %}
+                        <span>{{msn.msn_pro}}[{{msn.msn_psn}}], </span>
+                    {% endfor %}
+                {% else %}
+                    <span>No Data...</span>
+                {% endif %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3">Power_Housing</td>
+            <td>{{Power_Housing.4.0.msn_mtr.mtr_name}}</td>
+            <td>{{Power_Housing.4.0.msn_mtr.mtr_maker}}</td>
+            <td>{{Power_Housing.4.0.msn_mtr.mtr_emp.emp_name}}</td>
+            <td>{{Power_Housing.0}}</td>
+        </tr>
+        <tr>
+            <td>{{Power_Housing.1}}</td>
+            <td>{{Power_Housing.2}}</td>
+            <td colspan="2">{{Power_Housing.3}}</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                자재 사용 제품
+                </a><div style="DISPLAY: none">
+                {% if Power_Housing.1 != 0 %}
+                    {% for msn in Power_Housing.4 %}
+                        <span>{{msn.msn_pro}}[{{msn.msn_psn}}], </span>
+                    {% endfor %}
+                {% else %}
+                    <span>No Data...</span>
+                {% endif %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3">Power_Supply</td>
+            <td>{{Power_Supply.4.0.msn_mtr.mtr_name}}</td>
+            <td>{{Power_Supply.4.0.msn_mtr.mtr_maker}}</td>
+            <td>{{Power_Supply.4.0.msn_mtr.mtr_emp.emp_name}}</td>
+            <td>{{Power_Supply.0}}</td>
+        </tr>
+        <tr>
+            <td>{{Power_Supply.1}}</td>
+            <td>{{Power_Supply.2}}</td>
+            <td colspan="2">{{Power_Supply.3}}</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                자재 사용 제품
+                </a><div style="DISPLAY: none">
+                {% if Power_Supply.1 != 0 %}
+                    {% for msn in Power_Supply.4 %}
+                        <span>{{msn.msn_pro}}[{{msn.msn_psn}}], </span>
+                    {% endfor %}
+                {% else %}
+                    <span>No Data...</span>
+                {% endif %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3">Chassis</td>
+            <td>{{Chassis.4.0.msn_mtr.mtr_name}}</td>
+            <td>{{Chassis.4.0.msn_mtr.mtr_maker}}</td>
+            <td>{{Chassis.4.0.msn_mtr.mtr_emp.emp_name}}</td>
+            <td>{{Chassis.0}}</td>
+        </tr>
+        <tr>
+            <td>{{Chassis.1}}</td>
+            <td>{{Chassis.2}}</td>
+            <td colspan="2">{{Chassis.3}}</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                자재 사용 제품
+                </a><div style="DISPLAY: none">
+                {% if Chassis.1 != 0 %}
+                    {% for msn in Chassis.4 %}
+                        <span>{{msn.msn_pro}}[{{msn.msn_psn}}], </span>
+                    {% endfor %}
+                {% else %}
+                    <span>No Data...</span>
+                {% endif %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3">CPU</td>
+            <td>{{CPU.4.0.msn_mtr.mtr_name}}</td>
+            <td>{{CPU.4.0.msn_mtr.mtr_maker}}</td>
+            <td>{{CPU.4.0.msn_mtr.mtr_emp.emp_name}}</td>
+            <td>{{CPU.0}}</td>
+        </tr>
+        <tr>
+            <td>{{CPU.1}}</td>
+            <td>{{CPU.2}}</td>
+            <td colspan="2">{{CPU.3}}</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                자재 사용 제품
+                </a><div style="DISPLAY: none">
+                {% if CPU.1 != 0 %}
+                    {% for msn in CPU.4 %}
+                        <span>{{msn.msn_pro}}[{{msn.msn_psn}}], </span>
+                    {% endfor %}
+                {% else %}
+                    <span>No Data...</span>
+                {% endif %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3">DRAM</td>
+            <td>{{DRAM.4.0.msn_mtr.mtr_name}}</td>
+            <td>{{DRAM.4.0.msn_mtr.mtr_maker}}</td>
+            <td>{{DRAM.4.0.msn_mtr.mtr_emp.emp_name}}</td>
+            <td>{{DRAM.0}}</td>
+        </tr>
+        <tr>
+            <td>{{DRAM.1}}</td>
+            <td>{{DRAM.2}}</td>
+            <td colspan="2">{{DRAM.3}}</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                자재 사용 제품
+                </a><div style="DISPLAY: none">
+                {% if DRAM.1 != 0 %}
+                    {% for msn in DRAM.4 %}
+                        <span>{{msn.msn_pro}}[{{msn.msn_psn}}], </span>
+                    {% endfor %}
+                {% else %}
+                    <span>No Data...</span>
+                {% endif %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3">Mainboard</td>
+            <td>{{Mainboard.4.0.msn_mtr.mtr_name}}</td>
+            <td>{{Mainboard.4.0.msn_mtr.mtr_maker}}</td>
+            <td>{{Mainboard.4.0.msn_mtr.mtr_emp.emp_name}}</td>
+            <td>{{Mainboard.0}}</td>
+        </tr>
+        <tr>
+            <td>{{Mainboard.1}}</td>
+            <td>{{Mainboard.2}}</td>
+            <td colspan="2">{{Mainboard.3}}</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                자재 사용 제품
+                </a><div style="DISPLAY: none">
+                {% if RMM4_light.1 != 0 %}
+                    {% for msn in RMM4_light.4 %}
+                        <span>{{msn.msn_pro}}[{{msn.msn_psn}}], </span>
+                    {% endfor %}
+                {% else %}
+                    <span>No Data...</span>
+                {% endif %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3">SATADOM</td>
+            <td>{{SATADOM.4.0.msn_mtr.mtr_name}}</td>
+            <td>{{SATADOM.4.0.msn_mtr.mtr_maker}}</td>
+            <td>{{SATADOM.4.0.msn_mtr.mtr_emp.emp_name}}</td>
+            <td>{{SATADOM.0}}</td>
+        </tr>
+        <tr>
+            <td>{{SATADOM.1}}</td>
+            <td>{{SATADOM.2}}</td>
+            <td colspan="2">{{SATADOM.3}}</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                자재 사용 제품
+                </a><div style="DISPLAY: none">
+                {% if SATADOM.1 != 0 %}
+                    {% for msn in SATADOM.4 %}
+                        <span>{{msn.msn_pro}}[{{msn.msn_psn}}], </span>
+                    {% endfor %}
+                {% else %}
+                    <span>No Data...</span>
+                {% endif %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3">Expander_Board</td>
+            <td>{{Expander_Board.4.0.msn_mtr.mtr_name}}</td>
+            <td>{{Expander_Board.4.0.msn_mtr.mtr_maker}}</td>
+            <td>{{Expander_Board.4.0.msn_mtr.mtr_emp.emp_name}}</td>
+            <td>{{Expander_Board.0}}</td>
+        </tr>
+        <tr>
+            <td>{{Expander_Board.1}}</td>
+            <td>{{Expander_Board.2}}</td>
+            <td colspan="2">{{Expander_Board.3}}</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                자재 사용 제품
+                </a><div style="DISPLAY: none">
+                {% if Expander_Board.1 != 0 %}
+                    {% for msn in Expander_Board.4 %}
+                        <span>{{msn.msn_pro}}[{{msn.msn_psn}}], </span>
+                    {% endfor %}
+                {% else %}
+                    <span>No Data...</span>
+                {% endif %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3">Riser_Card_Left</td>
+            <td>{{Riser_Card_Left.4.0.msn_mtr.mtr_name}}</td>
+            <td>{{Riser_Card_Left.4.0.msn_mtr.mtr_maker}}</td>
+            <td>{{Riser_Card_Left.4.0.msn_mtr.mtr_emp.emp_name}}</td>
+            <td>{{Riser_Card_Left.0}}</td>
+        </tr>
+        <tr>
+            <td>{{Riser_Card_Left.1}}</td>
+            <td>{{Riser_Card_Left.2}}</td>
+            <td colspan="2">{{Riser_Card_Left.3}}</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                자재 사용 제품
+                </a><div style="DISPLAY: none">
+                {% if Riser_Card_Left.1 != 0 %}
+                    {% for msn in Riser_Card_Left.4 %}
+                        <span>{{msn.msn_pro}}[{{msn.msn_psn}}], </span>
+                    {% endfor %}
+                {% else %}
+                    <span>No Data...</span>
+                {% endif %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3">FC_HBA</td>
+            <td>{{FC_HBA.4.0.msn_mtr.mtr_name}}</td>
+            <td>{{FC_HBA.4.0.msn_mtr.mtr_maker}}</td>
+            <td>{{FC_HBA.4.0.msn_mtr.mtr_emp.emp_name}}</td>
+            <td>{{FC_HBA.0}}</td>
+        </tr>
+        <tr>
+            <td>{{FC_HBA.1}}</td>
+            <td>{{FC_HBA.2}}</td>
+            <td colspan="2">{{FC_HBA.3}}</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                자재 사용 제품
+                </a><div style="DISPLAY: none">
+                {% if FC_HBA.1 != 0 %}
+                    {% for msn in FC_HBA.4 %}
+                        <span>{{msn.msn_pro}}[{{msn.msn_psn}}], </span>
+                    {% endfor %}
+                {% else %}
+                    <span>No Data...</span>
+                {% endif %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3">Riser_Card_Right</td>
+            <td>{{Riser_Card_Right.4.0.msn_mtr.mtr_name}}</td>
+            <td>{{Riser_Card_Right.4.0.msn_mtr.mtr_maker}}</td>
+            <td>{{Riser_Card_Right.4.0.msn_mtr.mtr_emp.emp_name}}</td>
+            <td>{{Riser_Card_Right.0}}</td>
+        </tr>
+        <tr>
+            <td>{{Riser_Card_Right.1}}</td>
+            <td>{{Riser_Card_Right.2}}</td>
+            <td colspan="2">{{Riser_Card_Right.3}}</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                자재 사용 제품
+                </a><div style="DISPLAY: none">
+                {% if Riser_Card_Right.1 != 0 %}
+                    {% for msn in Riser_Card_Right.4 %}
+                        <span>{{msn.msn_pro}}[{{msn.msn_psn}}], </span>
+                    {% endfor %}
+                {% else %}
+                    <span>No Data...</span>
+                {% endif %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3">Host_Bus_Adapter</td>
+            <td>{{Host_Bus_Adapter.4.0.msn_mtr.mtr_name}}</td>
+            <td>{{Host_Bus_Adapter.4.0.msn_mtr.mtr_maker}}</td>
+            <td>{{Host_Bus_Adapter.4.0.msn_mtr.mtr_emp.emp_name}}</td>
+            <td>{{Host_Bus_Adapter.0}}</td>
+        </tr>
+        <tr>
+            <td>{{Host_Bus_Adapter.1}}</td>
+            <td>{{Host_Bus_Adapter.2}}</td>
+            <td colspan="2">{{Host_Bus_Adapter.3}}</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                자재 사용 제품
+                </a><div style="DISPLAY: none">
+                {% if Host_Bus_Adapter.1 != 0 %}
+                    {% for msn in Host_Bus_Adapter.4 %}
+                        <span>{{msn.msn_pro}}[{{msn.msn_psn}}], </span>
+                    {% endfor %}
+                {% else %}
+                    <span>No Data...</span>
+                {% endif %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3">NTB</td>
+            <td>{{NTB.4.0.msn_mtr.mtr_name}}</td>
+            <td>{{NTB.4.0.msn_mtr.mtr_maker}}</td>
+            <td>{{NTB.4.0.msn_mtr.mtr_emp.emp_name}}</td>
+            <td>{{NTB.0}}</td>
+        </tr>
+        <tr>
+            <td>{{NTB.1}}</td>
+            <td>{{NTB.2}}</td>
+            <td colspan="2">{{NTB.3}}</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                자재 사용 제품
+                </a><div style="DISPLAY: none">
+                {% if NTB.1 != 0 %}
+                    {% for msn in NTB.4 %}
+                        <span>{{msn.msn_pro}}[{{msn.msn_psn}}], </span>
+                    {% endfor %}
+                {% else %}
+                    <span>No Data...</span>
+                {% endif %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3">NVRAM</td>
+            <td>{{NVRAM.4.0.msn_mtr.mtr_name}}</td>
+            <td>{{NVRAM.4.0.msn_mtr.mtr_maker}}</td>
+            <td>{{NVRAM.4.0.msn_mtr.mtr_emp.emp_name}}</td>
+            <td>{{NVRAM.0}}</td>
+        </tr>
+        <tr>
+            <td>{{NVRAM.1}}</td>
+            <td>{{NVRAM.2}}</td>
+            <td colspan="2">{{NVRAM.3}}</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                자재 사용 제품
+                </a><div style="DISPLAY: none">
+                {% if NVRAM.1 != 0 %}
+                    {% for msn in NVRAM.4 %}
+                        <span>{{msn.msn_pro}}[{{msn.msn_psn}}], </span>
+                    {% endfor %}
+                {% else %}
+                    <span>No Data...</span>
+                {% endif %}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3">FAN</td>
+            <td>{{FAN.4.0.msn_mtr.mtr_name}}</td>
+            <td>{{FAN.4.0.msn_mtr.mtr_maker}}</td>
+            <td>{{FAN.4.0.msn_mtr.mtr_emp.emp_name}}</td>
+            <td>{{FAN.0}}</td>
+        </tr>
+        <tr>
+            <td>{{FAN.1}}</td>
+            <td>{{FAN.2}}</td>
+            <td colspan="2">{{FAN.3}}</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                자재 사용 제품
+                </a><div style="DISPLAY: none">
+                {% if FAN.1 != 0 %}
+                    {% for msn in FAN.4 %}
+                        <span>{{msn.msn_pro}}[{{msn.msn_psn}}], </span>
+                    {% endfor %}
+                {% else %}
+                    <span>No Data...</span>
+                {% endif %}
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<HR width="960px" size="3">
+{% endblock content %}

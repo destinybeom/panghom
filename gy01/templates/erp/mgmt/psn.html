@@ -1,0 +1,38 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<table>
+    <tr>
+        <td width="100px"></td>
+        <td width="760px" align="center"><h2>GAYADATA 제품S/N</h2></td>
+        <td width="100px" align="right" valign="bottom"><a href="/erp/mgmt/write/psn.html">Write</a></td>
+    </tr>
+</table>
+<table class="type02">
+    <thead>
+    <tr>
+        <th style="width:60px;" scope="cols">번호</th>
+        <th style="width:450px;" scope="cols">제품명</th>
+        <th style="width:300px;" scope="cols">Serial Number</th>
+        <th style="width:150px;" scope="cols">상태</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if gayapsn %}
+        {% for psn in gayapsn %}
+            <tr>
+                <td>{{psn.id}}</td>
+                <td><a href="/erp/mgmt/read/psn_read/{{psn.id}}">{{psn.psn_pro.pro_name}}</td>
+                <td>{{psn.psn_sn}}</td>
+                <td>{{psn.psn_state}}</td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="4">No data...</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+{% endblock content %}

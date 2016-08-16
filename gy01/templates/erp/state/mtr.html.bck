@@ -1,0 +1,29 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA 자재현황</h2>
+<HR width="960px" size="3">
+<table class="type01">
+    <thead>
+    <tr>
+        <th style="width:60px;" scope="cols">번호</th>
+        <th style="width:900px;" scope="cols">제품</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if gayapro %}
+        {% for pro in gayapro %}
+            <tr>
+                <td>{{pro.id}}</td>
+                <td><a href="/erp/state/mtr/{{pro.pro_name}}.html">{{pro.pro_name}}</td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr><td colspan=2>No Data...</td></tr>
+    {% endif %}
+    </tbody>
+</table>
+</div>
+<HR width="960px" size="3">
+{% endblock content %}

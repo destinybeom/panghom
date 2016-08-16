@@ -1,0 +1,52 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA 자유소통</h2>
+<table class="type03">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">항목</th>
+        <th style="width:800px;" scope="cols">내용</th>
+    </tr>
+    </thead>
+    <tbody>
+        <form method="post" action="/erp/social/add/scf/" enctype="multipart/form-data">{% csrf_token %}
+            <tr>
+                <th scope="row">제목</th>
+                <td><input type="text" id="scf_title" name="scf_title" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">작성자</th>
+                <td><input type="text" id="scf_name" name="scf_name" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">비밀번호</th>
+                <td><input type="password" id="scf_pw" name="scf_pw" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">내용</th>
+                <td><textarea id="scf_contents" name="scf_contents" cols="100" rows="10" ></textarea></td>
+            </tr>
+            <tr>
+                <th scope="row">파일</th>
+                <td><input type="file" id="scf_file01" name="scf_file01" /></br>
+                    <input type="file" id="scf_file02" name="scf_file02" /></br>
+                    <input type="file" id="scf_file03" name="scf_file03" /></td>
+            </tr>
+            <tr>
+                <th scope="row">이미지</th>
+                <td><input type="file" id="scf_img01" name="scf_img01" /></br>
+                    <input type="file" id="scf_img02" name="scf_img02" /></br>
+                    <input type="file" id="scf_img03" name="scf_img03" /></td>
+            </tr>
+            <tr>
+                <td colspan=2>
+                    <input type="hidden" id="scf_author" name="scf_author" value="{{user.emp_name}}" />
+                    <input type="submit" value="등록" />
+                </td>
+            </tr>
+        </form>
+    </tbody>
+</table>
+{% endblock content %}

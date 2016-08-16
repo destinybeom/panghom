@@ -1,0 +1,19 @@
+<!--첫로그인 페이지-->
+{% extends "base.html" %}
+
+{% block content %}
+<table width="600px" align="center">
+    <tr>
+        <td align="center"><h2>GAYADATA GRP OBT V1.0</h2><td>
+    </tr>
+{% if user.is_authenticated %}
+        <tr>
+            <td align="center"><a href='/erp/index.html'>Home</a> | <a href='/logout/'>Logout</a><td>
+        </tr>
+{% else %}
+        <tr>
+            <td align="center"><a href='/'>Home</a> | <a href='/login/'>Login</a><td>
+        </tr>
+{% endif %}
+</table>
+{% endblock content %}

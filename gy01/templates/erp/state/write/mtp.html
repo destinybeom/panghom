@@ -1,0 +1,60 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA 자재사용</h2>
+<table class="type03">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">항목</th>
+        <th style="width:800px;" scope="cols">내용</th>
+    </tr>
+    </thead>
+    <tbody>
+        <form method="post" action="/erp/state/add/mtp/">{% csrf_token %}
+            <tr>
+                <th scope="row">제품S/N</th>
+                <td>
+                    <select name="mtp_psn" id="mtp_psn">
+                        {% for psn in gayapsn %}
+                        <option value="{{psn.id}}">{{psn.psn_pro.pro_name}}|{{psn.psn_sn}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">자재S/N</th>
+                <td>
+                    <select name="mtp_msn" id="mtp_msn">
+                        {% for msn in gayamsn %}
+                        <option value="{{msn.id}}">{{msn.msn_mtr.mtr_name}}|{{msn.msn_sn}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">자재담당자</th>
+                <td>
+                    <select name="mtp_emp" id="mtp_emp">
+                        {% for emp in gayaemp %}
+                        <option value="{{emp.id}}">{{emp.emp_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">제품등록완료</th>
+                <td><input type="radio" value="0" id="mtp_complete" name="mtp_complete" checked="checked"/>등록중
+                <input type="radio" value="1" id="mtp_complete" name="mtp_complete" />등록완료</td>
+            </tr>
+            <tr>
+                <th scope="row">비고</th>
+                <td><textarea id="mtp_note" name="mtp_note" cols="100" rows="10" ></textarea></td>
+            </tr>
+            <tr>
+                <td colspan=2><input type="submit" value="등록" /></td>
+            </tr>
+        </form>
+    </tbody>
+</table>
+{% endblock content %}

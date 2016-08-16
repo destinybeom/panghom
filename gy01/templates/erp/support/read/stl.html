@@ -1,0 +1,78 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA Linux</h2>
+<table class="type03">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">항목</th>
+        <th style="width:800px;" scope="cols">내용</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">제목</th>
+            <td>{{current_entry.stl_title}}</td>
+        </tr>
+        <tr>
+            <th scope="row">작성자</th>
+            <td>{{current_entry.stl_name}}</td>
+        </tr>
+        <tr>
+            <th scope="row">내용</th>
+            <td>{{current_entry.stl_contents|linebreaks}}</td>
+        </tr>
+        <tr>
+            <th scope="row">파일</th>
+            <td><a href="{{current_entry.stl_file01.url}}">{{current_entry.stl_file01}}</a></br>
+                <a href="{{current_entry.stl_file02.url}}">{{current_entry.stl_file02}}</a></br>
+                <a href="{{current_entry.stl_file03.url}}">{{current_entry.stl_file03}}</a></br>
+                <a href="{{current_entry.stl_file04.url}}">{{current_entry.stl_file04}}</a></br>
+                <a href="{{current_entry.stl_file05.url}}">{{current_entry.stl_file05}}</a></td>
+        </tr>
+        <tr>
+            <th scope="row">이미지</th>
+            <td><img src="{{current_entry.stl_img01.url}}"></br>
+                <img src="{{current_entry.stl_img02.url}}"></br>
+                <img src="{{current_entry.stl_img03.url}}"></br>
+                <img src="{{current_entry.stl_img04.url}}"></br>
+                <img src="{{current_entry.stl_img05.url}}"></td>
+        </tr>
+    </tbody>
+</table>
+{% if comments|length %}
+<table width="900px" align="center">
+    <tr><td><ul>
+        <HR width="900px" size="3">
+        {% for comment in comments %}
+            <li>{{comment.com_name}}님이 {{comment.com_created}}에 남긴 댓글
+            <span>{{comment.com_contents|linebreaks}}</span></li>
+            <HR width="800px" size="3">
+        {% endfor %}
+    </ul></td></tr>
+</table>
+{% else %}
+    댓글이 없습니다.</br>
+{% endif %}
+<table width="800px" align="center">
+    <tr><td>
+        <form method="post" action="/erp/support/add/stl_comadd/">{% csrf_token %}
+            <input type="hidden" id="entry_id" name="entry_id" value="{{current_entry.id}}" />
+            <span><label for="name">작성자</label><input type="text" id="com_name" name="com_name" value="" /></span>
+            <span><label for="password">비밀번호</label><input type="password" id="com_pw" name="com_pw" value="" /></span></br>
+            <span><textarea id="com_content" name="com_content" cols="80" rows="3"></textarea></span></br>
+            <span><input type="submit" value="댓글 등록" /></span>
+        </form>
+    </tr></td>
+</table>
+<ul>
+    {% if prev_entry %}
+        <a href="/erp/support/read/stl_read/{{prev_entry.id}}">이전 글 ()</a>
+    {% endif %}
+
+    {% if next_entry %}
+        <a href="/erp/support/read/stl_read/{{next_entry.id}}">다음 글 ()</a>
+    {% endif %}
+</ul>
+{% endblock content %}

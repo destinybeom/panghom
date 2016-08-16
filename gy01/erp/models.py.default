@@ -1,0 +1,1818 @@
+#-*- coding: utf-8 -*-
+
+from django.db import models
+from django.contrib.auth.models import User
+
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
+
+# Create your models here.
+
+class GayaEmp(models.Model):
+    user                     = models.OneToOneField(User)
+    emp_name                     = models.CharField(max_length=128)
+    emp_rank                     = models.CharField(max_length=128)
+    emp_phone                    = models.CharField(max_length=128)
+    emp_email                    = models.EmailField(max_length=128)
+    emp_address                  = models.CharField(max_length=255)
+    emp_job                      = models.CharField(max_length=255)
+    emp_birthday                 = models.DateField()
+    emp_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    emp_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    emp_note                     = models.TextField(null=True, blank=True)
+    emp_comments                 = models.PositiveSmallIntegerField(default=0, null=True)
+
+    USERNAME_FIELD = 'user'
+    REQUIRED_FIELDS = ['emp_name', 'emp_rank', 'emp_phone', 'emp_email', 'emp_address', 'emp_job', 'emp_birthday',]
+
+    def __unicode__(self):
+        return "{0},{1},{2},{3},{4},{5},{6}".format(
+                self.emp_name
+                , self.emp_rank
+                , self.emp_phone
+                , self.emp_email
+                , self.emp_address
+                , self.emp_job
+                , self.emp_birthday
+            )
+
+class GayaCustomer(models.Model):
+    cus_name                     = models.CharField(max_length=128)
+    cus_section                  = models.CharField(max_length=128)
+    cus_rsps                     = models.CharField(max_length=128)
+    cus_phone                    = models.CharField(max_length=128)
+    cus_rphone                   = models.CharField(max_length=128)
+    cus_email                    = models.CharField(max_length=128)
+    cus_address                  = models.CharField(max_length=255)
+    cus_emp                      = models.ForeignKey('GayaEmp')
+    cus_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    cus_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    cus_note                     = models.TextField(null=True, blank=True)
+    cus_comments                 = models.PositiveSmallIntegerField(default=0, null=True)
+
+    def __unicode__(self):
+        return "{0},{1},{2},{3},{4},{5},{6},{7}".format(
+                self.cus_name
+                , self.cus_section
+                , self.cus_rsps
+                , self.cus_phone
+                , self.cus_rphone
+                , self.cus_email
+                , self.cus_address
+                , self.cus_emp
+            )
+
+class GayaProductInfo(models.Model):
+    pro_class                    = models.CharField(max_length=128)
+    pro_name                     = models.CharField(max_length=255)
+    pro_info                     = models.TextField()
+    pro_emp                      = models.ForeignKey('GayaEmp')
+    pro_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    pro_note                     = models.TextField(null=True, blank=True)
+
+    def __unicode__(self):
+        return "{0},{1},{2},{3}".format(
+                self.pro_class
+                , self.pro_name
+                , self.pro_info
+                , self.pro_emp
+            )
+
+class GayaOrder(models.Model):
+    ord_title                    = models.CharField(max_length=255)
+    ord_ponum                    = models.CharField(max_length=128)
+    ord_pro                      = models.ForeignKey('GayaProductInfo')
+    ord_cus                      = models.ForeignKey('GayaCustomer')
+    ord_emp                      = models.ForeignKey('GayaEmp')
+    ord_total                    = models.IntegerField()
+    ord_os                       = models.CharField(max_length=128, null=True, blank=True)
+    ord_orderday                 = models.DateField()
+    ord_delivery                 = models.DateField()
+    ord_warranty                 = models.DateField()
+    ord_complete                 = models.IntegerField(default=0, null=True)
+    ord_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ord_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    ord_note                     = models.TextField(null=True, blank=True)
+    ord_comments                 = models.PositiveSmallIntegerField(default=0, null=True)
+
+    def __unicode__(self):
+        return "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}".format(
+                self.ord_title
+                , self.ord_ponum
+                , self.ord_pro
+                , self.ord_cus
+                , self.ord_emp
+                , self.ord_total
+                , self.ord_os
+                , self.ord_orderday
+                , self.ord_delivery
+                , self.ord_warranty
+                , self.ord_complete
+            )
+
+class GayaMaterialInfo(models.Model):
+    mtr_class                    = models.CharField(max_length=128)
+    mtr_name                     = models.CharField(max_length=128)
+    mtr_desc                     = models.TextField(null=True)
+    mtr_total                    = models.IntegerField()
+    mtr_maker                    = models.CharField(max_length=128)
+    mtr_purchase                 = models.CharField(max_length=128)
+    mtr_purchaseday              = models.DateField()
+    mtr_repository               = models.CharField(max_length=128)
+    mtr_emp                      = models.ForeignKey('GayaEmp')
+    mtr_finished_sn              = models.IntegerField(default=0, null=True, blank=True)
+    mtr_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    mtr_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    mtr_note                     = models.TextField(null=True, blank=True)
+    mtr_comments                 = models.PositiveSmallIntegerField(default=0, null=True)
+
+    def __unicode__(self):
+        return "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9}".format(
+                self.mtr_class
+                , self.mtr_name
+                , self.mtr_desc
+                , self.mtr_total
+                , self.mtr_maker
+                , self.mtr_purchase
+                , self.mtr_purchaseday
+                , self.mtr_repository
+                , self.mtr_emp
+                , self.mtr_finished_sn
+            )
+
+class GayaMaterialSN(models.Model):
+    msn_mtr                      = models.ForeignKey('GayaMaterialInfo')
+    msn_emp                      = models.ForeignKey('GayaEmp')
+    msn_pn                       = models.CharField(max_length=128)
+    msn_sn                       = models.CharField(max_length=128, unique=True)
+    msn_state                    = models.IntegerField(default=0,null=True, blank=True)
+    msn_using                    = models.IntegerField(default=0,null=True, blank=True)
+    msn_out                      = models.IntegerField(default=0,null=True, blank=True)
+    msn_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    msn_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    msn_note                     = models.TextField(null=True, blank=True)
+
+    def __unicode__(self):
+        return "{0},{1},{2},{3},{4},{5},{6}".format(
+                self.msn_mtr
+                , self.msn_emp
+                , self.msn_pn
+                , self.msn_sn
+                , self.msn_state
+                , self.msn_using
+                , self.msn_out
+            )
+
+class HA201_TP(models.Model):
+    ha201tp_pn                   = models.CharField(max_length=128)
+    ha201tp_sn                   = models.CharField(max_length=128, unique=True)
+    ha201tp_emp                  = models.ForeignKey('GayaEmp')
+    ha201tp_state                = models.IntegerField(default=0,null=True, blank=True)
+    ha201tp_using                = models.IntegerField(default=0,null=True, blank=True)
+    ha201tp_out                  = models.IntegerField(default=0,null=True, blank=True)
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+    ha201tp_note                 = models.TextField(null=True, blank=True)
+    ha201tp_comments             = models.PositiveSmallIntegerField(default=0, null=True)
+
+    def __unicode__(self):
+        return "{0},{1},{2},{3},{4},{5}".format(
+                self.ha201tp_pn
+                , self.ha201tp_sn
+                , self.ha201tp_emp
+                , self.ha201tp_state
+                , self.ha201tp_using
+                , self.ha201tp_out
+            )
+
+class HA201TP_disk_backplane(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.disk_backplane
+                , self.ha201tp
+            )
+
+class HA201TP_interposer00(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer00
+                , self.ha201tp
+            )
+
+class HA201TP_interposer01(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer01
+                , self.ha201tp
+            )
+
+class HA201TP_interposer02(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer02
+                , self.ha201tp
+            )
+
+class HA201TP_interposer03(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer03
+                , self.ha201tp
+            )
+
+class HA201TP_interposer04(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer04
+                , self.ha201tp
+            )
+
+class HA201TP_interposer05(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer05
+                , self.ha201tp
+            )
+
+class HA201TP_interposer06(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer06
+                , self.ha201tp
+            )
+
+class HA201TP_interposer07(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer07
+                , self.ha201tp
+            )
+
+class HA201TP_interposer08(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer08
+                , self.ha201tp
+            )
+
+class HA201TP_interposer09(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer09
+                , self.ha201tp
+            )
+
+class HA201TP_interposer10(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer10
+                , self.ha201tp
+            )
+
+class HA201TP_interposer11(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer11
+                , self.ha201tp
+            )
+
+class HA201TP_interposer12(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer12
+                , self.ha201tp
+            )
+
+class HA201TP_interposer13(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer13
+                , self.ha201tp
+            )
+
+class HA201TP_interposer14(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer14
+                , self.ha201tp
+            )
+
+class HA201TP_interposer15(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer15
+                , self.ha201tp
+            )
+
+class HA201TP_interposer16(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer16
+                , self.ha201tp
+            )
+
+class HA201TP_interposer17(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer17
+                , self.ha201tp
+            )
+
+class HA201TP_interposer18(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer18
+                , self.ha201tp
+            )
+
+class HA201TP_interposer19(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer19
+                , self.ha201tp
+            )
+
+class HA201TP_interposer20(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer20
+                , self.ha201tp
+            )
+
+class HA201TP_interposer21(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer21
+                , self.ha201tp
+            )
+
+class HA201TP_interposer22(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer22
+                , self.ha201tp
+            )
+
+class HA201TP_interposer23(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.interposer23
+                , self.ha201tp
+            )
+
+class HA201TP_ssd00(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd00
+                , self.ha201tp
+            )
+
+class HA201TP_ssd01(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd01
+                , self.ha201tp
+            )
+
+class HA201TP_ssd02(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd02
+                , self.ha201tp
+            )
+
+class HA201TP_ssd03(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd03
+                , self.ha201tp
+            )
+
+class HA201TP_ssd04(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd04
+                , self.ha201tp
+            )
+
+class HA201TP_ssd05(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd05
+                , self.ha201tp
+            )
+
+class HA201TP_ssd06(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd06
+                , self.ha201tp
+            )
+
+class HA201TP_ssd07(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd07
+                , self.ha201tp
+            )
+
+class HA201TP_ssd08(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd08
+                , self.ha201tp
+            )
+
+class HA201TP_ssd09(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd09
+                , self.ha201tp
+            )
+
+class HA201TP_ssd10(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd10
+                , self.ha201tp
+            )
+
+class HA201TP_ssd11(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd11
+                , self.ha201tp
+            )
+
+class HA201TP_ssd12(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd12
+                , self.ha201tp
+            )
+
+class HA201TP_ssd13(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd13
+                , self.ha201tp
+            )
+
+class HA201TP_ssd14(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd14
+                , self.ha201tp
+            )
+
+class HA201TP_ssd15(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd15
+                , self.ha201tp
+            )
+
+class HA201TP_ssd16(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd16
+                , self.ha201tp
+            )
+
+class HA201TP_ssd17(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd17
+                , self.ha201tp
+            )
+
+class HA201TP_ssd18(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd18
+                , self.ha201tp
+            )
+
+class HA201TP_ssd19(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd19
+                , self.ha201tp
+            )
+
+class HA201TP_ssd20(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd20
+                , self.ha201tp
+            )
+
+class HA201TP_ssd21(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd21
+                , self.ha201tp
+            )
+
+class HA201TP_ssd22(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd22
+                , self.ha201tp
+            )
+
+class HA201TP_ssd23(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.ssd23
+                , self.ha201tp
+            )
+
+class HA201TP_power_housing(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.power_hosing
+                , self.ha201tp
+            )
+
+class HA201TP_power_supply00(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.power_supply00
+                , self.ha201tp
+            )
+
+class HA201TP_power_supply01(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.power_supply01
+                , self.ha201tp
+            )
+
+class HA201TP_p_chassis(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_chassis
+                , self.ha201tp
+            )
+
+class HA201TP_p_cpu00(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_cpu00
+                , self.ha201tp
+            )
+
+class HA201TP_p_cpu01(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_cpu01
+                , self.ha201tp
+            )
+
+class HA201TP_p_dram00(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_dram00
+                , self.ha201tp
+            )
+
+class HA201TP_p_dram01(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_dram01
+                , self.ha201tp
+            )
+
+class HA201TP_p_dram02(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_dram02
+                , self.ha201tp
+            )
+
+class HA201TP_p_dram03(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_dram03
+                , self.ha201tp
+            )
+
+class HA201TP_p_dram04(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_dram04
+                , self.ha201tp
+            )
+
+class HA201TP_p_dram05(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_dram05
+                , self.ha201tp
+            )
+
+class HA201TP_p_dram06(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_dram06
+                , self.ha201tp
+            )
+
+class HA201TP_p_dram07(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_dram07
+                , self.ha201tp
+            )
+
+class HA201TP_p_mainboard(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_mainboard
+                , self.ha201tp
+            )
+
+class HA201TP_p_rmm4_light(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_rmm4_light
+                , self.ha201tp
+            )
+
+class HA201TP_p_satadom00(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_satadom00
+                , self.ha201tp
+            )
+
+class HA201TP_p_satadom01(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_satadom01
+                , self.ha201tp
+            )
+
+class HA201TP_p_expander_board(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_expander_board
+                , self.ha201tp
+            )
+
+class HA201TP_p_riser_card_l00(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_riser_card_l00
+                , self.ha201tp
+            )
+
+class HA201TP_p_riser_card_l01(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_riser_card_l01
+                , self.ha201tp
+            )
+
+class HA201TP_p_fc_hba00(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_fc_hba00
+                , self.ha201tp
+            )
+
+class HA201TP_p_fc_hba01(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_fc_hba01
+                , self.ha201tp
+            )
+
+class HA201TP_p_riser_card_r(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_riser_card_r
+                , self.ha201tp
+            )
+
+class HA201TP_p_host_bus_adapter(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_host_bus_adapter
+                , self.ha201tp
+            )
+
+class HA201TP_p_ntb(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_ntb
+                , self.ha201tp
+            )
+
+class HA201TP_p_nvram(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_nvram
+                , self.ha201tp
+            )
+
+class HA201TP_p_fan00(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_fan00
+                , self.ha201tp
+            )
+
+class HA201TP_p_fan01(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.p_fan01
+                , self.ha201tp
+            )
+
+class HA201TP_s_chassis(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_chassis
+                , self.ha201tp
+            )
+
+class HA201TP_s_cpu00(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_cpu00
+                , self.ha201tp
+            )
+
+class HA201TP_s_cpu01(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_cpu01
+                , self.ha201tp
+            )
+
+class HA201TP_s_dram00(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_dram00
+                , self.ha201tp
+            )
+
+class HA201TP_s_dram01(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_dram01
+                , self.ha201tp
+            )
+
+class HA201TP_s_dram02(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_dram02
+                , self.ha201tp
+            )
+
+class HA201TP_s_dram03(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_dram03
+                , self.ha201tp
+            )
+
+class HA201TP_s_dram04(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_dram04
+                , self.ha201tp
+            )
+
+class HA201TP_s_dram05(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_dram05
+                , self.ha201tp
+            )
+
+class HA201TP_s_dram06(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_dram06
+                , self.ha201tp
+            )
+
+class HA201TP_s_dram07(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_dram07
+                , self.ha201tp
+            )
+
+class HA201TP_s_mainboard(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_mainboard
+                , self.ha201tp
+            )
+
+class HA201TP_s_rmm4_light(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_rmm4_light
+                , self.ha201tp
+            )
+
+class HA201TP_s_satadom00(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_satadom00
+                , self.ha201tp
+            )
+
+class HA201TP_s_satadom01(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_satadom01
+                , self.ha201tp
+            )
+
+class HA201TP_s_expander_board(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_expander_board
+                , self.ha201tp
+            )
+
+class HA201TP_s_riser_card_l00(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_riser_card_l00
+                , self.ha201tp
+            )
+
+class HA201TP_s_riser_card_l01(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_riser_card_l01
+                , self.ha201tp
+            )
+
+class HA201TP_s_fc_hba00(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_fc_hba00
+                , self.ha201tp
+            )
+
+class HA201TP_s_fc_hba01(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_fc_hba01
+                , self.ha201tp
+            )
+
+class HA201TP_s_riser_card_r(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_riser_card_r
+                , self.ha201tp
+            )
+
+class HA201TP_s_host_bus_adapter(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_host_bus_adapter
+                , self.ha201tp
+            )
+
+class HA201TP_s_ntb(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_ntb
+                , self.ha201tp
+            )
+
+class HA201TP_s_nvram(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_nvram
+                , self.ha201tp
+            )
+
+class HA201TP_s_fan00(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_fan00
+                , self.ha201tp
+            )
+
+class HA201TP_s_fan01(models.Model):
+    ha201tp_msn                  = models.ForeignKey('GayaMaterialSN')
+    ha201tp_sn                   = models.ForeignKey('HA201_TP')
+    ha201tp_created              = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ha201tp_modified             = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+    def __unicode__(self):
+        return "{0},{1}".format(
+                self.s_fan01
+                , self.ha201tp
+            )
+
+class GayaHA201TP(models.Model):
+    g_ha201tp                    = models.ForeignKey('HA201_TP')
+    g_ha201tp_emp                = models.ForeignKey('GayaEmp')
+    g_ha201tp_gayasn             = models.CharField(max_length=128, unique=True)
+    g_ha201tp_state              = models.IntegerField(default=0,null=True, blank=True)
+    g_ha201tp_using              = models.IntegerField(default=0,null=True, blank=True)
+    g_ha201tp_out                = models.IntegerField(default=0,null=True, blank=True)
+    g_ha201tp_created            = models.DateTimeField(auto_now_add=True, auto_now=False)
+    g_ha201tp_modified           = models.DateTimeField(auto_now_add=False, auto_now=True)
+    g_ha201tp_note               = models.TextField(null=True, blank=True)
+
+    def __unicode__(self):
+        return "{0},{1},{2},{3},{4},{5}".format(
+                self.g_ha201tp
+                , self.g_ha201tp_emp
+                , self.g_ha201tp_gayasn
+                , self.g_ha201tp_state
+                , self.g_ha201tp_using
+                , self.g_ha201tp_out
+            )
+
+class HA201TPFactoryReport(models.Model):
+    ftr_psn                      = models.ForeignKey('HA201_TP')
+    ftr_r_emp                    = models.ForeignKey('GayaEmp')
+    ftr_assembleday              = models.DateField()
+    ftr_t_emp                    = models.CharField(default='none', max_length=128, null=True, blank=True)
+    ftr_testday                  = models.DateField(null=True, blank=True)
+    ftr_c_emp                    = models.CharField(default='none', max_length=128, null=True, blank=True)
+    ftr_completeday              = models.DateField(null=True, blank=True)
+    ftr_complete                 = models.IntegerField(default=0,null=True, blank=True)
+    ftr_os                       = models.CharField(default='none', max_length=128, null=True, blank=True)
+    ftr_osver                    = models.CharField(default='none', max_length=128, null=True, blank=True)
+    ftr_oslin                    = models.CharField(default='none', max_length=128, null=True, blank=True)
+    ftr_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    ftr_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    ftr_note                     = models.TextField(null=True, blank=True)
+
+    def __unicode__(self):
+        return "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}".format(
+                self.ftr_psn
+                , self.ftr_r_emp
+                , self.ftr_registday
+                , self.ftr_t_emp
+                , self.ftr_testday
+                , self.ftr_c_emp
+                , self.ftr_completeday
+                , self.ftr_complete
+                , self.ftr_created
+                , self.ftr_os
+                , self.ftr_osver
+                , self.ftr_oslin
+            )
+
+class HA201TPOrderReport(models.Model):
+    orr_ftr                      = models.ForeignKey('HA201TPFactoryReport')
+    orr_ord                      = models.ForeignKey('GayaOrder')
+    orr_emp                      = models.ForeignKey('GayaEmp')
+    orr_complete                 = models.IntegerField(default=0,null=True, blank=True)
+    orr_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    orr_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    orr_note                     = models.TextField(null=True, blank=True)
+
+    def __unicode__(self):
+        return "{0},{1},{2}".format(
+                self.orr_ftr
+                , self.orr_ord
+                , self.orr_emp
+            )
+
+class HA201TPDeliveryReport(models.Model):
+    dlr_orr                      = models.ForeignKey('HA201TPOrderReport')
+    dlr_emp                      = models.ForeignKey('GayaEmp')
+    dlr_when                     = models.DateField()
+    dlr_where                    = models.CharField(max_length=128)
+    dlr_how                      = models.CharField(max_length=128)
+    dlr_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    dlr_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    dlr_note                     = models.TextField(null=True, blank=True)
+
+    def __unicode__(self):
+        return "{0},{1},{2},{3},{4}".format(
+                self.dlr_orr
+                , self.dlr_emp
+                , self.dlr_when
+                , self.dlr_where
+                , self.dlr_how
+            )
+
+class GayaSptLinux(models.Model):
+    stl_title                    = models.CharField(max_length=255)
+    stl_name                     = models.CharField(max_length=128)
+    stl_pw                       = models.CharField(max_length=128)
+    stl_contents                 = models.TextField()
+    stl_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    stl_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    stl_file01                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stl_file02                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stl_file03                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stl_file04                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stl_file05                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stl_img01                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stl_img02                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stl_img03                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stl_img04                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stl_img05                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stl_comments                 = models.PositiveSmallIntegerField(default=0, null=True)
+
+class GayaSptWindows(models.Model):
+    stw_title                    = models.CharField(max_length=255)
+    stw_name                     = models.CharField(max_length=128)
+    stw_pw                       = models.CharField(max_length=128)
+    stw_contents                 = models.TextField()
+    stw_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    stw_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    stw_file01                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stw_file02                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stw_file03                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stw_file04                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stw_file05                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stw_img01                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stw_img02                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stw_img03                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stw_img04                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stw_img05                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stw_comments                 = models.PositiveSmallIntegerField(default=0, null=True)
+
+class GayaSptServer(models.Model):
+    stv_title                    = models.CharField(max_length=255)
+    stv_name                     = models.CharField(max_length=128)
+    stv_pw                       = models.CharField(max_length=128)
+    stv_contents                 = models.TextField()
+    stv_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    stv_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    stv_file01                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stv_file02                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stv_file03                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stv_file04                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stv_file05                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stv_img01                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stv_img02                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stv_img03                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stv_img04                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stv_img05                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stv_comments                 = models.PositiveSmallIntegerField(default=0, null=True)
+
+class GayaSptStorage(models.Model):
+    stt_title                    = models.CharField(max_length=255)
+    stt_name                     = models.CharField(max_length=128)
+    stt_pw                       = models.CharField(max_length=128)
+    stt_contents                 = models.TextField()
+    stt_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    stt_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    stt_file01                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stt_file02                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stt_file03                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stt_file04                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stt_file05                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stt_img01                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stt_img02                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stt_img03                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stt_img04                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stt_img05                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stt_comments                 = models.PositiveSmallIntegerField(default=0, null=True)
+
+class GayaSptSwitch(models.Model):
+    stc_title                    = models.CharField(max_length=255)
+    stc_name                     = models.CharField(max_length=128)
+    stc_pw                       = models.CharField(max_length=128)
+    stc_contents                 = models.TextField()
+    stc_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    stc_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    stc_file01                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stc_file02                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stc_file03                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stc_file04                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stc_file05                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    stc_img01                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stc_img02                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stc_img03                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stc_img04                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stc_img05                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    stc_comments                 = models.PositiveSmallIntegerField(default=0, null=True)
+
+class GayaSptDev(models.Model):
+    std_title                    = models.CharField(max_length=255)
+    std_name                     = models.CharField(max_length=128)
+    std_pw                       = models.CharField(max_length=128)
+    std_contents                 = models.TextField()
+    std_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    std_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    std_file01                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    std_file02                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    std_file03                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    std_file04                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    std_file05                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    std_img01                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    std_img02                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    std_img03                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    std_img04                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    std_img05                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    std_comments                 = models.PositiveSmallIntegerField(default=0, null=True)
+
+class GayaSclCommon(models.Model):
+    scc_title                    = models.CharField(max_length=255)
+    scc_name                     = models.CharField(max_length=128)
+    scc_pw                       = models.CharField(max_length=128)
+    scc_contents                 = models.TextField()
+    scc_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    scc_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    scc_file01                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    scc_file02                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    scc_file03                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    scc_img01                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    scc_img02                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    scc_img03                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    scc_comments                 = models.PositiveSmallIntegerField(default=0, null=True)
+
+class GayaSclFree(models.Model):
+    scf_title                    = models.CharField(max_length=255)
+    scf_name                     = models.CharField(max_length=128)
+    scf_pw                       = models.CharField(max_length=128)
+    scf_contents                 = models.TextField()
+    scf_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    scf_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    scf_file01                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    scf_file02                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    scf_file03                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    scf_img01                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    scf_img02                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    scf_img03                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    scf_comments                 = models.PositiveSmallIntegerField(default=0, null=True)
+
+class GayaSclRecommend(models.Model):
+    scr_title                    = models.CharField(max_length=255)
+    scr_name                     = models.CharField(max_length=128)
+    scr_pw                       = models.CharField(max_length=128)
+    scr_contents                 = models.TextField()
+    scr_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    scr_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    scr_file01                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    scr_file02                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    scr_file03                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    scr_img01                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    scr_img02                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    scr_img03                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    scr_comments                 = models.PositiveSmallIntegerField(default=0, null=True)
+
+class GayaSclQanda(models.Model):
+    scq_title                    = models.CharField(max_length=255)
+    scq_name                     = models.CharField(max_length=128)
+    scq_pw                       = models.CharField(max_length=128)
+    scq_contents                 = models.TextField()
+    scq_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    scq_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    scq_file01                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    scq_file02                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    scq_file03                   = models.FileField(upload_to='file/%Y/%m/%d/', null=True, blank=True)
+    scq_img01                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    scq_img02                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    scq_img03                    = models.ImageField(upload_to='img/%Y/%m/%d/', null=True, blank=True)
+    scq_comments                 = models.PositiveSmallIntegerField(default=0, null=True)
+
+class GayaEmpComments(models.Model):
+    com_name                     = models.CharField(max_length=64)
+    com_pw                       = models.CharField(max_length=64)
+    com_contents                 = models.TextField(max_length=2048)
+    com_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    com_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    com_emp                      = models.ForeignKey('GayaEmp')
+
+class GayaCusComments(models.Model):
+    com_name                     = models.CharField(max_length=64)
+    com_pw                       = models.CharField(max_length=64)
+    com_contents                 = models.TextField(max_length=2048)
+    com_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    com_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    com_cus                      = models.ForeignKey('GayaCustomer')
+
+class Gaya_HA201TP_Comments(models.Model):
+    com_name                     = models.CharField(max_length=64)
+    com_pw                       = models.CharField(max_length=64)
+    com_contents                 = models.TextField(max_length=2048)
+    com_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    com_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    com_ha201tp                  = models.ForeignKey('HA201_TP')
+
+class GayaMtrComments(models.Model):
+    com_name                     = models.CharField(max_length=64)
+    com_pw                       = models.CharField(max_length=64)
+    com_contents                 = models.TextField(max_length=2048)
+    com_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    com_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    com_mtr                      = models.ForeignKey('GayaMaterialInfo')
+
+class GayaOrdComments(models.Model):
+    com_name                     = models.CharField(max_length=64)
+    com_pw                       = models.CharField(max_length=64)
+    com_contents                 = models.TextField(max_length=2048)
+    com_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    com_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    com_ord                      = models.ForeignKey('GayaOrder')
+
+class GayaStlComments(models.Model):
+    com_name                     = models.CharField(max_length=64)
+    com_pw                       = models.CharField(max_length=64)
+    com_contents                 = models.TextField(max_length=2048)
+    com_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    com_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    com_stl                      = models.ForeignKey('GayaSptLinux')
+
+class GayaStwComments(models.Model):
+    com_name                     = models.CharField(max_length=64)
+    com_pw                       = models.CharField(max_length=64)
+    com_contents                 = models.TextField(max_length=2048)
+    com_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    com_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    com_stw                      = models.ForeignKey('GayaSptWindows')
+
+class GayaStvComments(models.Model):
+    com_name                     = models.CharField(max_length=64)
+    com_pw                       = models.CharField(max_length=64)
+    com_contents                 = models.TextField(max_length=2048)
+    com_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    com_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    com_stv                      = models.ForeignKey('GayaSptServer')
+
+class GayaSttComments(models.Model):
+    com_name                     = models.CharField(max_length=64)
+    com_pw                       = models.CharField(max_length=64)
+    com_contents                 = models.TextField(max_length=2048)
+    com_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    com_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    com_stt                      = models.ForeignKey('GayaSptStorage')
+
+class GayaStcComments(models.Model):
+    com_name                     = models.CharField(max_length=64)
+    com_pw                       = models.CharField(max_length=64)
+    com_contents                 = models.TextField(max_length=2048)
+    com_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    com_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    com_stc                      = models.ForeignKey('GayaSptSwitch')
+
+class GayaStdComments(models.Model):
+    com_name                     = models.CharField(max_length=64)
+    com_pw                       = models.CharField(max_length=64)
+    com_contents                 = models.TextField(max_length=2048)
+    com_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    com_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    com_std                      = models.ForeignKey('GayaSptDev')
+
+class GayaSccComments(models.Model):
+    com_name                     = models.CharField(max_length=64)
+    com_pw                       = models.CharField(max_length=64)
+    com_contents                 = models.TextField(max_length=2048)
+    com_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    com_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    com_scc                      = models.ForeignKey('GayaSclCommon')
+
+class GayaScfComments(models.Model):
+    com_name                     = models.CharField(max_length=64)
+    com_pw                       = models.CharField(max_length=64)
+    com_contents                 = models.TextField(max_length=2048)
+    com_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    com_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    com_scf                      = models.ForeignKey('GayaSclFree')
+
+class GayaScrComments(models.Model):
+    com_name                     = models.CharField(max_length=64)
+    com_pw                       = models.CharField(max_length=64)
+    com_contents                 = models.TextField(max_length=2048)
+    com_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    com_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    com_scr                      = models.ForeignKey('GayaSclRecommend')
+
+class GayaScqComments(models.Model):
+    com_name                     = models.CharField(max_length=64)
+    com_pw                       = models.CharField(max_length=64)
+    com_contents                 = models.TextField(max_length=2048)
+    com_created                  = models.DateTimeField(auto_now_add=True, auto_now=False)
+    com_modified                 = models.DateTimeField(auto_now_add=False, auto_now=True)
+    com_scq                      = models.ForeignKey('GayaSclQanda')
+

@@ -1,0 +1,37 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA Server</h2>
+<table class="type03">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">항목</th>
+        <th style="width:800px;" scope="cols">내용</th>
+    </tr>
+    </thead>
+    <tbody>
+        <form method="post" action="/erp/support/modify/stv/">{% csrf_token %}
+            <tr>
+                <th scope="row">제목</th>
+                <td><input type="text" id="stv_title" name="stv_title" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">작성자</th>
+                <td><input type="text" id="stv_name" name="stv_name" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">비밀번호</th>
+                <td><input type="password" id="stv_pw" name="stv_pw" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">내용</th>
+                <td><textarea id="stv_contents" name="stv_contents" cols="100" rows="10" ></textarea></td>
+            </tr>
+            <tr>
+                <td colspan=2><input type="submit" value="등록" /></td>
+            </tr>
+        </form>
+    </tbody>
+</table>
+{% endblock content %}

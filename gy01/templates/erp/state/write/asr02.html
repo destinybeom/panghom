@@ -1,0 +1,56 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA 조립완료</h2>
+<table class="type03">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">항목</th>
+        <th style="width:800px;" scope="cols">내용</th>
+    </tr>
+    </thead>
+    <tbody>
+        <form method="post" action="/erp/state/add/asr02/">{% csrf_token %}
+            <tr>
+                <th scope="row">제품S/N</th>
+                <td>
+                    <select name="asr_id" id="asr_id">
+                        {% for asr in gayaasr %}
+                        <option value="{{asr.id}}">{{asr.asr_pro}} [ {{asr.asr_psn}} ]</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">조립완료날짜</th>
+                <td><input type="date" id="asr_completeday" name="asr_completeday" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">조립완료담당자</th>
+                <td>
+                    <select name="asr_c_emp" id="asr_c_emp">
+                        {% for emp in gayaemp %}
+                        <option value="{{emp.emp_name}}">{{emp.emp_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">완료보고서</th>
+                <td><input type="file" id="asr_report" name="asr_report" /></td>
+            </tr>
+            <tr>
+                <th scope="row">비고</th>
+                <td><textarea id="asr_note" name="asr_note" cols="100" rows="10" ></textarea></td>
+            </tr>
+            <tr>
+                <td colspan=2>
+                    <input type="hidden" id="asr_author" name="asr_author" value="{{user.emp_name}}" />
+                    <input type="submit" value="조립완료" />
+                </td>
+            </tr>
+        </form>
+    </tbody>
+</table>
+{% endblock content %}

@@ -1,0 +1,68 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA 자재</h2>
+<table class="type03">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">항목</th>
+        <th style="width:800px;" scope="cols" colspan="3">내용</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">자재명</th>
+            <td colspan="3">{{current_entry.mtr_name}}</td>
+        </tr>
+        <tr>
+            <th scope="row">구입수량</th>
+            <td colspan="3">{{current_entry.mtr_total}}</td>
+        </tr>
+        <tr>
+            <th scope="row" rowspan="2">사용수량</th>
+            <td>보관</td>
+            <td>생산</td>
+            <td>출고</td>
+        </tr>
+        <tr>
+            <td>{{remnants}}</td>
+            <td>{{usingCnt}}</td>
+            <td>{{outCnt}}</td>
+        </tr>
+        <tr>
+            <th scope="row">제조사</th>
+            <td colspan="3">{{current_entry.mtr_maker}}</td>
+        </tr>
+        <tr>
+            <th scope="row">구입처</th>
+            <td colspan="3">{{current_entry.mtr_purchase}}</td>
+        </tr>
+        <tr>
+            <th scope="row">구입날짜</th>
+            <td colspan="3">{{current_entry.mtr_purchaseday}}</td>
+        </tr>
+        <tr>
+            <th scope="row">보관장소</th>
+            <td colspan="3">{{current_entry.mtr_repository}}</td>
+        </tr>
+        <tr>
+            <th scope="row">GAYA담당자</th>
+            <td colspan="3">{{current_entry.mtr_emp.emp_name}}</td>
+        </tr>
+        <tr>
+            <th scope="row">비고</th>
+            <td colspan="3">{{current_entry.mtr_note|linebreaks}}</td>
+        </tr>
+    </tbody>
+</table>
+<ul>
+    {% if prev_entry %}
+        <a href="/erp/mgmt/read/mtr_read/{{prev_entry.id}}">이전 글 ()</a>
+    {% endif %}
+
+    {% if next_entry %}
+        <a href="/erp/mgmt/read/mtr_read/{{next_entry.id}}">다음 글 ()</a>
+    {% endif %}
+</ul>
+{% endblock content %}

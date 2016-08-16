@@ -1,0 +1,63 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA 고객</h2>
+<table class="type03">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">항목</th>
+        <th style="width:800px;" scope="cols">내용</th>
+    </tr>
+    </thead>
+    <tbody>
+        <form method="post" action="/erp/mgmt/modify/cus/">{% csrf_token %}
+            <tr>
+                <th scope="row">고객명</th>
+                <td><input type="text" id="cus_name" name="cus_name" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">고객구분</th>
+                <td><input type="text" id="cus_section" name="cus_section" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">고객담당자</th>
+                <td><input type="text" id="cus_rsps" name="cus_rsps" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">대표전화</th>
+                <td><input type="text" id="cus_phone" name="cus_phone" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">담당전화</th>
+                <td><input type="text" id="cus_rphone" name="cus_rphone" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">고객E-Mail</th>
+                <td><input type="text" id="cus_email" name="cus_email" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">고객주소</th>
+                <td><input type="text" id="cus_address" name="cus_address" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">GAYA담당자</th>
+                <td>
+                    <select name="cus_emp" id="cus_emp">
+                        {% for emp in gayaemp %}
+                        <option value="{{emp.id}}">{{emp.emp_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">비고</th>
+                <td><textarea id="cus_note" name="cus_note" cols="100" rows="10" ></textarea></td>
+            </tr>
+            <tr>
+                <td colspan=2><input type="submit" value="등록" /></td>
+            </tr>
+        </form>
+    </tbody>
+</table>
+{% endblock content %}

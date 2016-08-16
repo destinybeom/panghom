@@ -1,0 +1,34 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<table width="960px" align="center">
+    <tr><td>
+            <ul id="purple">
+                <li class="current"><strong>소통</strong><span></span></li>
+                <li><a href="/erp/social/scc.html" title="">공지사항<span>사내 공지사항을 위한 게시판</span></a></li>
+                <li><a href="/erp/social/scf.html" title="">자유소통<span>임직원간의 자유로운 대화를 위한 게시판</span></a></li>
+                <li><a href="/erp/social/scr.html" title="">건의사항<span>회사에 건의사항을 위한 게시판</span></a></li>
+                <li><a href="/erp/social/scq.html" title="">Q&A<span>회사에 궁금증을 풀 수 있는 게시판</span></a></li>
+            </ul>
+    </td></tr>
+</table>
+<center>
+<h2>GAYADATA 소통</h2>
+<table class="type01">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">메뉴</th>
+        <th style="width:800px;" scope="cols">정보</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for scc in gayascc %}
+        <tr>
+            <td>{{scc.id}}</td>
+            <td>{{scc.scc_title}}</td>
+            <td>{{scc.scc_name}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

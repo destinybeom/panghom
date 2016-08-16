@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if next %}
+        {% if user.is_authenticated %}
+        <p>다시 시도하세요.</p>
+        {% else %}
+        <p>관리자에게 문의하세요.</p>
+        {% endif %}
+    {% endif %}
+
+    <form method="post" action=".">{% csrf_token %}
+        <center>
+        <table class="type02">
+            <thead>
+                <tr>
+                    <th style="width:410px" scope="cols" colspan="2">GAYA ERP Login</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th style="width:150px" scope="row">{{ form.username.label_tag }}</td>
+                    <td style="width:260px">{{ form.username }}</td>
+                </tr>
+                <tr>
+                    <td style="width:150px" scope="row">{{ form.password.label_tag }}</td>
+                    <td style="width:260px">{{ form.password }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <input type="submit" value="Login" />
+        <input type="hidden" name="next" value="/erp/index.html" />
+    </form>
+{% endblock content %}

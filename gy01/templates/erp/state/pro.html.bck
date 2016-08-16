@@ -1,0 +1,330 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA 제품현황</h2>
+<HR width="960px" size="3">
+<a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+<h3><li>제품 S/N 현황 [ {{psnCnt}} ]</li></h3>
+</a><div style="DISPLAY: none">
+<table class="type01">
+    <thead>
+    <tr>
+        <th style="width:60px;" scope="cols">번호</th>
+        <th style="width:900px;" scope="cols">제품 | S/N</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if psnCnt != 0 %}
+        {% for psn, val in gayapro.iteritems %}
+            <tr>
+                <td>{{psn.id}}</td>
+                <td><a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">{{psn.psn_pro.pro_name}} | {{psn.psn_sn}}
+                </a><div style="DISPLAY: none">
+                    <table class="type01">
+                        <thead>
+                        <tr>
+                            <th style="width:160px;" scope="cols">항목</th>
+                            <th style="width:700px;" scope="cols">내용</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">자재정보</th>
+                            {% if val.0 != 0 %}
+                                <td>{% for mtp in val.0 %}
+                                        {{mtp.mtp_msn.msn_mtr.mtr_name}} | {{mtp.mtp_msn.msn_sn}}</br>
+                                    {% endfor %}
+                                </td>
+                            {% else %}
+                                <td>생산 대기 중...</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <th scope="row">생산정보</th>
+                            {% if val.1 != 0 %}
+                                <td>1차생산시작 | {{val.1.ftr_registday}}</br>
+                                    1차생산담당 | {{val.1.ftr_r_emp.emp_name}}</br>
+                                    2차생산시작 | {{val.1.ftr_testday}}</br>
+                                    2차생산담당 | {{val.1.ftr_t_emp}}</br>
+                                    생산완료날짜 | {{val.1.ftr_completeday}}</br>
+                                    생산완료담당 | {{val.1.ftr_c_emp}}</br>
+                                    설치OS | {{val.1.ftr_os}}</br>
+                                    OS_Ver | {{val.1.ftr_osver}}</br>
+                                    OS_Lin | {{val.1.ftr_oslin}}</br>
+                                    {% if val.2 != 0 %}
+                                        생산완료 | Yes!
+                                    {% else %}
+                                        생산완료 | No..
+                                    {% endif %}
+                                </td>
+                            {% else %}
+                                <td>생산 준비 중...</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <th scope="row">주문정보</th>
+                            {% if val.3 != 0 %}
+                                <td>{{val.3.orr_ord.ord_title}}</br>
+                                    {{val.3.orr_emp.emp_name}}
+                                </td>
+                            {% else %}
+                                <td>주문 할당 대기 중...</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <th scope="row">출고정보</th>
+                            {% if val.4 != 0 %}
+                                <td>{{val.4.dlr_emp.emp_name}}</br>
+                                    {{val.4.dlr_where}} | {{val.4.dlr_how}}
+                                </td>
+                            {% else %}
+                                <td>출고 대기 중...</td>
+                            {% endif %}
+                        </tr>
+                        </tbody>
+                    </table>
+                </div></td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr><td colspan=2>No Data...</td></tr>
+    {% endif %}
+    </tbody>
+</table>
+</div>
+<HR width="960px" size="3">
+<h3><li>제품 상태 흐름 현황</li></h3>
+<a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+<h4>생산 대기 중... [ {{psnCnt}} ]</h4>
+</a><div style="DISPLAY: none">
+<table class="type01">
+    <thead>
+    <tr>
+        <th style="width:60px;" scope="cols">번호</th>
+        <th style="width:900px;" scope="cols">제품 | S/N</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if psnCnt != 0 %}
+        {% for psn, gayamtp in gayapsn.iteritems %}
+            <tr>
+                <td>{{psn.id}}</td>
+                <td><a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">{{psn.psn_pro.pro_name}} | {{psn.psn_sn}}
+                </a><div style="DISPLAY: none">
+                    <table class="type01">
+                        <thead>
+                        <tr>
+                            <th style="width:160px;" scope="cols">항목</th>
+                            <th style="width:700px;" scope="cols">내용</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">자재정보</th>
+                            {% if gayamtp != 0 %}
+                                <td>
+                                    {% for mtp in gayamtp %}
+                                        {{mtp.mtp_msn.msn_mtr.mtr_name}} | {{mtp.mtp_msn.msn_sn}}</br>
+                                    {% endfor %}
+                                </td>
+                            {% else %}
+                                <td>No Data...</td>
+                            {% endif %}
+                        </tr>
+                        </tbody>
+                    </table>
+                </div></td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr><td colspan=2>No Data...</td></tr>
+    {% endif %}
+    </tbody>
+</table>
+</div>
+<a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+<h4>생산 중... [ {{ftrCnt01}} ]</h4>
+</a><div style="DISPLAY: none">
+<table class="type01">
+    <thead>
+    <tr>
+        <th style="width:60px;" scope="cols">번호</th>
+        <th style="width:900px;" scope="cols">제품 | S/N</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if ftrCnt01 != 0 %}
+        {% for ftr in gayaftr01 %}
+            <tr>
+                <td>{{ftr.id}}</td>
+                <td><a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">{{ftr.ftr_psn.psn_pro.pro_name}} | {{ftr.ftr_psn.psn_sn}}
+                </a><div style="DISPLAY: none">
+                    <table class="type01">
+                        <thead>
+                        <tr>
+                            <th style="width:160px;" scope="cols">항목</th>
+                            <th style="width:700px;" scope="cols">내용</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">1차생산시작</th>
+                            <td>{{ftr.ftr_registday}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">1차생산담당</th>
+                            <td>{{ftr.ftr_r_emp.emp_name}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2차생산시작</th>
+                            <td>{{ftr.ftr_testday}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2차생산담당</th>
+                            <td>{{ftr.ftr_t_emp}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3차생산시작</th>
+                            <td>{{ftr.ftr_completeday}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3차생산담당</th>
+                            <td>{{ftr.ftr_c_emp}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">OS</th>
+                            <td>{{ftr.ftr_os}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">OS_ver</th>
+                            <td>{{ftr.ftr_osver}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">OS_license</th>
+                            <td>{{ftr.ftr_oslin}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div></td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr><td colspan=2>No Data...</td></tr>
+    {% endif %}
+    </tbody>
+</table>
+</div>
+<a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+<h4>주문 할당 대기 중... [ {{ftrCnt02}} ]</h4>
+</a><div style="DISPLAY: none">
+<table class="type01">
+    <thead>
+    <tr>
+        <th style="width:60px;" scope="cols">번호</th>
+        <th style="width:900px;" scope="cols">제품 | S/N</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if ftrCnt02 != 0 %}
+        {% for ftr in gayaftr02 %}
+            <tr>
+                <td>{{ftr.id}}</td>
+                <td>{{ftr.ftr_psn.psn_pro.pro_name}} | {{ftr.ftr_psn.psn_sn}}
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr><td colspan=2>No Data...</td></tr>
+    {% endif %}
+    </tbody>
+</table>
+</div>
+<a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+<h4>출고 대기 중... [ {{orrCnt}} ]</h4>
+</a><div style="DISPLAY: none">
+<table class="type01">
+    <thead>
+    <tr>
+        <th style="width:60px;" scope="cols">번호</th>
+        <th style="width:900px;" scope="cols">제품 | S/N | GAYA담당자</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if orrCnt != 0 %}
+        {% for orr in gayaorr %}
+            <tr>
+                <td>{{orr.id}}</td>
+                <td>{{orr.orr_ftr.ftr_psn.psn_pro.pro_name}} | 
+                    {{orr.orr_ftr.ftr_psn.psn_sn}} | 
+                    {{orr.orr_emp.emp_name}}
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr><td colspan=2>No Data...</td></tr>
+    {% endif %}
+    </tbody>
+</table>
+</div>
+<a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+<h4>출고 완료... [ {{dlrCnt}} ]</h4>
+</a><div style="DISPLAY: none">
+<table class="type01">
+    <thead>
+    <tr>
+        <th style="width:60px;" scope="cols">번호</th>
+        <th style="width:900px;" scope="cols">제품 | S/N</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if dlrCnt != 0 %}
+        {% for dlr, gayampt in gayadlr.iteritems %}
+            <tr>
+                <td>{{dlr.id}}</td>
+                <td><a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">{{dlr.dlr_orr.orr_ftr.ftr_psn.psn_pro.pro_name}} | {{dlr.dlr_orr.orr_ftr.ftr_psn.psn_sn}}
+                </a><div style="DISPLAY: none">
+                    <table class="type01">
+                        <thead>
+                        <tr>
+                            <th style="width:160px;" scope="cols">항목</th>
+                            <th style="width:700px;" scope="cols">내용</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">누가</th>
+                            <td>{{dlr.dlr_emp.emp_name}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">언제</th>
+                            <td>{{dlr.dlr_when}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">어디로</th>
+                            <td>{{dlr.dlr_where}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">어떻게</th>
+                            <td>{{dlr.dlr_how}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">자재정보</th>
+                            <td>{% for mpt in gayampt %}
+                                    {{mpt.mpt_mtr.mtr_name}} | {{mpt.mpt_sn}}</br>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div></td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr><td colspan=2>No Data...</td></tr>
+    {% endif %}
+    </tbody>
+</table>
+</div>
+<HR width="960px" size="3">
+{% endblock content %}

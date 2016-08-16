@@ -1,0 +1,54 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA 자재S/N</h2>
+<table class="type03">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">항목</th>
+        <th style="width:800px;" scope="cols">내용</th>
+    </tr>
+    </thead>
+    <tbody>
+        <form method="post" action="/erp/mgmt/modify/msn/">{% csrf_token %}
+            <tr>
+                <th scope="row">자재</th>
+                <td>
+                    <select name="msn_mtr" id="msn_mtr">
+                        {% for mtr in gayamtr %}
+                        <option value="{{mtr.id}}">{{mtr.mtr_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">GAYA담당자</th>
+                <td>
+                    <select name="msn_emp" id="msn_emp">
+                        {% for emp in gayaemp %}
+                        <option value="{{emp.id}}">{{emp.emp_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">자재S/N</th>
+                <td><input type="text" id="msn_sn" name="msn_sn" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">자재상태</th>
+                <td><input type="radio" value="0" id="msn_state" name="msn_state" />사용가능</td>
+                <td><input type="radio" value="1" id="msn_state" name="msn_state" />사용불가</td>
+            </tr>
+            <tr>
+                <th scope="row">비고</th>
+                <td><textarea id="msn_note" name="msn_note" cols="100" rows="10" ></textarea></td>
+            </tr>
+            <tr>
+                <td colspan=2><input type="submit" value="등록" /></td>
+            </tr>
+        </form>
+    </tbody>
+</table>
+{% endblock content %}

@@ -1,0 +1,58 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA 생산시작</h2>
+<table class="type03">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">항목</th>
+        <th style="width:800px;" scope="cols">내용</th>
+    </tr>
+    </thead>
+    <tbody>
+        <form method="post" action="/erp/state/add/asr01/">{% csrf_token %}
+            <tr>
+                <th scope="row">제품명</th>
+                <td>
+                    <input type="radio" value="0" id="asr_pro" name="asr_pro" checked="checked" />HA201_TP
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">제품S/N</th>
+                <td>
+                    <select name="asr_pid" id="asr_pid">
+                        {% for pro in ha201tp %}
+                        <option value="{{pro.id}}">{{pro.pro_sn}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">생산시작날짜</th>
+                <td><input type="date" id="asr_startday" name="asr_startday" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">생산담당자</th>
+                <td>
+                    <select name="asr_s_emp" id="asr_s_emp">
+                        {% for emp in gayaemp %}
+                        <option value="{{emp.id}}">{{emp.emp_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">비고</th>
+                <td><textarea id="asr_note" name="asr_note" cols="100" rows="10" ></textarea></td>
+            </tr>
+            <tr>
+                <td colspan=2>
+                    <input type="hidden" id="asr_author" name="asr_author" value="{{user.emp_name}}" />
+                    <input type="submit" value="생산시작" />
+                </td>
+            </tr>
+        </form>
+    </tbody>
+</table>
+{% endblock content %}

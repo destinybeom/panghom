@@ -1,0 +1,54 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA 제품</h2>
+<table class="type03">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">항목</th>
+        <th style="width:800px;" scope="cols">내용</th>
+    </tr>
+    </thead>
+    <tbody>
+        <form method="post" action="/erp/mgmt/add/pro/">{% csrf_token %}
+            <tr>
+                <th scope="row">분류</th>
+                <td>
+                    <input type="radio" value="Server" id="pro_class" name="pro_class" checked="checked"/>Server
+                    <input type="radio" value="Storage" id="pro_class" name="pro_class" />Storage
+                    <input type="radio" value="Switch" id="pro_class" name="pro_class" />Switch
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">제품명</th>
+                <td><input type="text" id="pro_name" name="pro_name" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">제품정보</th>
+                <td><textarea id="pro_info" name="pro_info" cols="100" rows="10" ></textarea></td>
+            </tr>
+            <tr>
+                <th scope="row">GAYA담당자</th>
+                <td>
+                    <select name="pro_emp" id="pro_emp">
+                        {% for emp in gayaemp %}
+                        <option value="{{emp.id}}">{{emp.emp_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">비고</th>
+                <td><textarea id="pro_note" name="pro_note" cols="100" rows="10" ></textarea></td>
+            </tr>
+            <tr>
+                <td colspan=2>
+                    <input type="hidden" id="pro_author" name="pro_author" value="{{user.emp_name}}" />
+                    <input type="submit" value="등록" />
+                </td>
+            </tr>
+        </form>
+    </tbody>
+</table>
+{% endblock content %}

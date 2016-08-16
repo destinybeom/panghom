@@ -1,0 +1,53 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA 직원</h2>
+<table class="type03">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">항목</th>
+        <th style="width:800px;" scope="cols">내용</th>
+    </tr>
+    </thead>
+    <tbody>
+        <form method="post" action="/erp/mgmt/modify/emp/">{% csrf_token %}
+            <tr>
+                <th scope="row">이름</th>
+                <td><input type="text" id="emp_name" name="emp_name" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">직급</th>
+                <td><input type="text" id="emp_rank" name="emp_rank" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">전화</th>
+                <td><input type="text" id="emp_phone" name="emp_phone" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">E-Mail</th>
+                <td><input type="text" id="emp_email" name="emp_email" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">주소</th>
+                <td><input type="text" id="emp_address" name="emp_address" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">업무</th>
+                <td><input type="text" id="emp_job" name="emp_job" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">생일</th>
+                <td><input type="text" id="emp_birthday" name="emp_birthday" size="60" maxlength="60" />ex)yyyy-mm-dd</td>
+            </tr>
+            <tr>
+                <th scope="row">비고</th>
+                <td><textarea id="emp_note" name="emp_note" cols="100" rows="10" ></textarea></td>
+            </tr>
+            <tr>
+                <td colspan=2><input type="submit" value="등록" /></td>
+            </tr>
+        </form>
+    </tbody>
+</table>
+{% endblock content %}

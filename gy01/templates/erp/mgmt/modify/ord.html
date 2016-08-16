@@ -1,0 +1,83 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA 주문</h2>
+<table class="type03">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">항목</th>
+        <th style="width:800px;" scope="cols">내용</th>
+    </tr>
+    </thead>
+    <tbody>
+        <form method="post" action="/erp/mgmt/modify/ord/">{% csrf_token %}
+            <tr>
+                <th scope="row">주문명</th>
+                <td><input type="text" id="ord_title" name="ord_title" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">거래번호</th>
+                <td><input type="text" id="ord_ponum" name="ord_ponum" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">주문제품</th>
+                <td>
+                    <select name="ord_pro" id="ord_pro">
+                        {% for pro in gayapro %}
+                        <option value="{{pro.id}}">{{pro.pro_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">주문고객</th>
+                <td>
+                    <select name="ord_cus" id="ord_cus">
+                        {% for cus in gayacus %}
+                        <option value="{{cus.id}}">{{cus.cus_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">GAYA담당자</th>
+                <td>
+                    <select name="ord_emp" id="ord_emp">
+                        {% for emp in gayaemp %}
+                        <option value="{{emp.id}}">{{emp.emp_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">주문수량</th>
+                <td><input type="text" id="ord_total" name="ord_total" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">주문OS</th>
+                <td><input type="text" id="ord_os" name="ord_os" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">주문날짜</th>
+                <td><input type="text" id="ord_orderday" name="ord_orderday" size="60" maxlength="60" />ex)yyyy-mm-dd</td>
+            </tr>
+            <tr>
+                <th scope="row">완료날짜</th>
+                <td><input type="text" id="ord_delivery" name="ord_delivery" size="60" maxlength="60" />ex)yyyy-mm-dd</td>
+            </tr>
+            <tr>
+                <th scope="row">보증날짜</th>
+                <td><input type="text" id="ord_warranty" name="ord_warranty" size="60" maxlength="60" />ex)yyyy-mm-dd</td>
+            </tr>
+            <tr>
+                <th scope="row">비고</th>
+                <td><textarea id="ord_note" name="ord_note" cols="100" rows="10" ></textarea></td>
+            </tr>
+            <tr>
+                <td colspan=2><input type="submit" value="등록" /></td>
+            </tr>
+        </form>
+    </tbody>
+</table>
+{% endblock content %}

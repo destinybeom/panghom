@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!--로그된 모든 페이지의 공통으로 첨부되는 기본 파일-->
+<head>
+    {% load static %}
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    <title>GAYADATA</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+        <table width="960px" align="center">
+            <tr>
+                <td width="600px"><a href="/erp/index.html"><img width="300px" src="{% static "gaya.gif" %}" /></a></td>
+                <td width="360px" align="right" valign="bottom">안녕하세요. {{ user.emp_name }}님! ( <a href="/logout">Logout</a>
+                    {% if user.emp_pwon == 0 %}
+                    |<a href="/password_change"> pw</a>
+                    {% else %}
+                    {% endif %})</td>
+            </tr>
+        </table>
+        <ul id="menu">
+            <li><a href="/erp/index.html"><span>Home</span></a></li>
+            <li>
+                <a href="/erp/state/ord.html"><span>주문</span></a>
+            </li>
+            <li>
+                <a href="/erp/state/pro.html"><span>제품</span></a>
+            </li>
+            <li>
+                <a href="/erp/state/mtr.html"><span>자재</span></a>
+            </li>
+            <li>
+                <a href="#"><span>등록</span></a>
+                <ul>
+                    <li><a href="/erp/state/write/asr01.html"><span>생산시작</span></a></li>
+                    <li><a href="/erp/state/write/asr02.html"><span>조립완료</span></a></li>
+                    <li><a href="/erp/state/write/isr.html"><span>검증완료</span></a></li>
+                    <li><a href="/erp/state/write/pcr.html"><span>포장완료</span></a></li>
+                    <li><a href="/erp/state/write/orr.html"><span>주문할당</span></a></li>
+                    <li><a href="/erp/state/write/dlr.html"><span>출고완료</span></a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="/erp/mgmt/main.html"><span>관리</span></a>
+                <ul>
+                    <li><a href="/erp/mgmt/emp.html"><span>직원</span></a></li>
+                    <li><a href="/erp/mgmt/cus.html"><span>고객</span></a></li>
+                    <li><a href="/erp/mgmt/ord.html"><span>주문</span></a></li>
+                    <li><a href="/erp/mgmt/pro.html"><span>제품</span></a></li>
+                    <li><a href="/erp/mgmt/mtr.html"><span>자재</span></a>
+                        <ul>
+                            <li><a href="/erp/mgmt/msn.html"><span>S/N</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="/erp/support/main.html"><span>지원</span></a>
+                <ul>
+                    <li><a href="/erp/support/stl.html"><span>Linux</span></a></li>
+                    <li><a href="/erp/support/stw.html"><span>Windows</span></a></li>
+                    <li><a href="/erp/support/stv.html"><span>Server</span></a></li>
+                    <li><a href="/erp/support/stt.html"><span>Storage</span></a></li>
+                    <li><a href="/erp/support/stc.html"><span>Switch</span></a></li>
+                    <li><a href="/erp/support/std.html"><span>Dev</span></a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="/erp/social/main.html"><span>소통</span></a>
+                <ul>
+                    <li><a href="/erp/social/scc.html"><span>공지사항</span></a></li>
+                    <li><a href="/erp/social/scf.html"><span>자유소통</span></a></li>
+                    <li><a href="/erp/social/scr.html"><span>건의사항</span></a></li>
+                    <li><a href="/erp/social/scq.html"><span>Q&A</span></a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="/erp/about.html"><span>About</span></a>
+            </li>
+        </ul>
+        <HR width="960px" size="3">
+        <!--변경될 내용이 들어갈 위치
+        block content를 내용이 작성된 html에서 사용하여
+        현재 파일의 내용을 자동 첨부 할 수 있다.-->
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
+        <footer>
+            <img src="{% static "footer.gif" %}">
+        </footer>
+    {% else %}
+        <span>sorry...</span>
+    {% endif %}
+</body>
+</html>

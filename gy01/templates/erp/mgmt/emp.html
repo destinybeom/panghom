@@ -1,0 +1,64 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<table>
+    <tr>
+        <td width="100px"></td>
+        <td width="760px" align="center"><h2>GAYADATA 직원</h2></td>
+        <td width="100px" align="right" valign="bottom"></td>
+        <!--<td width="100px" align="right" valign="bottom"><a href="/erp/mgmt/write/emp.html">Write</a></td>-->
+    </tr>
+</table>
+<table class="type02">
+    <thead>
+    <tr>
+        <th style="width:60px;" scope="cols">번호</th>
+        <th style="width:500px;" scope="cols">이름</th>
+        <th style="width:200px;" scope="cols">직급</th>
+        <th style="width:200px;" scope="cols">전화</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if gayaemp %}
+        {% for emp in gayaemp %}<!--넘겨받은 값으로 게시판 표시-->
+            <tr>
+                <td>{{emp.id}}</td>
+                <td><a href="/erp/mgmt/read/emp_read/{{emp.id}}">{{emp.emp_name}}</td>
+                <td>{{emp.emp_rank}}</td>
+                <td>{{emp.emp_phone}}</td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan=4>No data...</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+<center>
+<!--페이징 처리-->
+{% if total_page > 1 %}<!--페이지 유무 확인-->
+    {% if prev_page %}<!--앞 페이지가 있는 경우-->
+        <a href="/erp/mgmt/emp/{{prev_page}}">이전 </a>
+    {% endif %}
+    <!--페이지 번호를 출력-->
+    {% for p in page_list %}
+        <!--현재페이지와 같은 페이지 번호는 강조-->
+        {% if current_page == p %}
+            <a href="/erp/mgmt/emp/{{p}}"><font size="5"><strong>{{p}}</strong></font></a>,
+        {% else %}
+            <a href="/erp/mgmt/emp/{{p}}">{{p}}</a>,
+        {% endif %}
+    {% endfor %}
+        <!--추가 페이지가 없는 경우-->
+        {% if current_page == total_page %}
+            ... <a href="/erp/mgmt/emp/{{total_page}}"><font size="5"><strong>{{total_page}}</strong></font></a>
+        {% else %}
+            ... <a href="/erp/mgmt/emp/{{total_page}}">{{total_page}}</a>
+        {% endif %}
+    {% if next_page %}<!--뒤 페이지가 있는 경우-->
+        <a href="/erp/mgmt/emp/{{next_page}}"> 다음</a>
+    {% endif %}
+{% endif %}
+{% endblock content %}

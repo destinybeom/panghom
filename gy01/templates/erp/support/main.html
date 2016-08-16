@@ -1,0 +1,36 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<table width="960px" align="center">
+    <tr><td>
+            <ul id="blue">
+                <li class="current"><strong>지원</strong><span></span></li>
+                <li><a href="/erp/support/stl.html" title="">Linux<span>Linux 기술 정보 및 문제 파악</span></a></li>
+                <li><a href="/erp/support/stw.html" title="">Windows<span>Windows 기술 정보 및 문제 파악</span></a></li>
+                <li><a href="/erp/support/stv.html" title="">Server<span>Server 기술 정보 및 문제 파악</span></a></li>
+                <li><a href="/erp/support/stt.html" title="">Storage<span>Storage 기술 정보 및 문제 파악</span></a></li>
+                <li><a href="/erp/support/stc.html" title="">Switch<span>Switch 기술 정보 및 문제 파악</span></a></li>
+                <li><a href="/erp/support/std.html" title="">Dev<span>Dev 기술 정보 및 문제 파악</span></a></li>
+            </ul>
+    </td></tr>
+</table>
+<center>
+<h2>GAYADATA 지원</h2>
+<table class="type01">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">메뉴</th>
+        <th style="width:800px;" scope="cols">정보</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for scc in gayascc %}
+        <tr>
+            <td>{{scc.id}}</td>
+            <td>{{scc.scc_title}}</td>
+            <td>{{scc.scc_name}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

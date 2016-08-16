@@ -1,0 +1,57 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<table>
+    <tr>
+        <td width="100px"></td>
+        <td width="760px" align="center"><h2>GAYADATA 공지사항</h2></td>
+        <td width="100px" align="right" valign="bottom"><a href="/erp/social/write/scc.html">Write</a></td>
+    </tr>
+</table>
+<table class="type02">
+    <thead>
+    <tr>
+        <th style="width:60px;" scope="cols">번호</th>
+        <th style="width:750px;" scope="cols">제목</th>
+        <th style="width:150px;" scope="cols">작성자</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if gayascc %}
+        {% for scc in gayascc %}
+            <tr>
+                <td>{{scc.id}}</td>
+                <td><a href="/erp/social/read/scc_read/{{scc.id}}">{{scc.scc_title}}</td>
+                <td>{{scc.scc_name}}</td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan=3>No data...</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+<center>
+{% if total_page > 1 %}
+    {% if prev_page %}
+        <a href="/erp/social/scc/{{prev_page}}">이전 </a>
+    {% endif %}
+    {% for p in page_list %}
+        {% if current_page == p %}
+            <a href="/erp/social/scc/{{p}}"><font size="5"><strong>{{p}}</strong></font></a>,
+        {% else %}
+            <a href="/erp/social/scc/{{p}}">{{p}}</a>,
+        {% endif %}
+    {% endfor %}
+        {% if current_page == total_page %}
+            ... <a href="/erp/social/scc/{{total_page}}"><font size="5"><strong>{{total_page}}</strong></font></a>
+        {% else %}
+            ... <a href="/erp/social/scc/{{total_page}}">{{total_page}}</a>
+        {% endif %}
+    {% if next_page %}
+        <a href="/erp/social/scc/{{next_page}}"> 다음</a>
+    {% endif %}
+{% endif %}
+{% endblock content %}

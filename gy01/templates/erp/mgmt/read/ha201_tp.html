@@ -1,0 +1,540 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA HA201_TP</h2>
+<table class="type03">
+    <thead>
+    <tr>
+        <th style="width:100px;" scope="cols">구분</th>
+        <th style="width:120px;" scope="cols">항목</th>
+        <th style="width:80px;" scope="cols">제조사</th>
+        <th style="width:160px;" scope="cols">자재명</th>
+        <th style="width:60px;" scope="cols">수량</th>
+        <th style="width:220px;" scope="cols">PN</th>
+        <th style="width:220px;" scope="cols">SN</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan="53">Server</td>
+            <th scope="row">Chassis</th>
+            <td>AIC</td>
+            <td>HA201_TP</td>
+            <td>1</td>
+            <td>{{ha201tp.pro_pn}}</td>
+            <td>{{ha201tp.pro_sn}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Disk Backplane</th>
+            <td>AIC</td>
+            <td></td>
+            <td>{{entry_cnt.0}}</td>
+            <td>{{current_entry.0.0.msn_pn}}</td>
+            <td>{{current_entry.0.0.msn_sn}}</td>
+        </tr>
+        <tr>
+            <th scope="row" rowspan="24">Interposer</th>
+            <td rowspan="24">LSI</td>
+            <td rowspan="24"></td>
+            <td rowspan="24">{{entry_cnt.1}}</td>
+            <td>{{current_entry.1.0.msn_pn}}</td>
+            <td>{{current_entry.1.0.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.1.1.msn_pn}}</td>
+            <td>{{current_entry.1.1.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.1.2.msn_pn}}</td>
+            <td>{{current_entry.1.2.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.1.3.msn_pn}}</td>
+            <td>{{current_entry.1.3.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.1.4.msn_pn}}</td>
+            <td>{{current_entry.1.4.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.1.5.msn_pn}}</td>
+            <td>{{current_entry.1.5.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.1.6.msn_pn}}</td>
+            <td>{{current_entry.1.6.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.1.7.msn_pn}}</td>
+            <td>{{current_entry.1.7.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.1.8.msn_pn}}</td>
+            <td>{{current_entry.1.8.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.1.9.msn_pn}}</td>
+            <td>{{current_entry.1.9.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.1.10.msn_pn}}</td>
+            <td>{{current_entry.1.10.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.1.11.msn_pn}}</td>
+            <td>{{current_entry.1.11.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.1.12.msn_pn}}</td>
+            <td>{{current_entry.1.12.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.1.13.msn_pn}}</td>
+            <td>{{current_entry.1.13.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.1.14.msn_pn}}</td>
+            <td>{{current_entry.1.14.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.1.15.msn_pn}}</td>
+            <td>{{current_entry.1.15.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.1.16.msn_pn}}</td>
+            <td>{{current_entry.1.16.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.1.17.msn_pn}}</td>
+            <td>{{current_entry.1.17.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.1.18.msn_pn}}</td>
+            <td>{{current_entry.1.18.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.1.19.msn_pn}}</td>
+            <td>{{current_entry.1.19.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.1.20.msn_pn}}</td>
+            <td>{{current_entry.1.20.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.1.21.msn_pn}}</td>
+            <td>{{current_entry.1.21.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.1.22.msn_pn}}</td>
+            <td>{{current_entry.1.22.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.1.23.msn_pn}}</td>
+            <td>{{current_entry.1.23.msn_sn}}</td>
+        </tr>
+        <tr>
+            <th scope="row" rowspan="24">SSD</th>
+            <td rowspan="24"></td>
+            <td rowspan="24"></td>
+            <td rowspan="24">{{entry_cnt.2}}</td>
+            <td>{{current_entry.2.0.msn_pn}}</td>
+            <td>{{current_entry.2.0.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.2.1.msn_pn}}</td>
+            <td>{{current_entry.2.1.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.2.2.msn_pn}}</td>
+            <td>{{current_entry.2.2.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.2.3.msn_pn}}</td>
+            <td>{{current_entry.2.3.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.2.4.msn_pn}}</td>
+            <td>{{current_entry.2.4.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.2.5.msn_pn}}</td>
+            <td>{{current_entry.2.5.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.2.6.msn_pn}}</td>
+            <td>{{current_entry.2.6.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.2.7.msn_pn}}</td>
+            <td>{{current_entry.2.7.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.2.8.msn_pn}}</td>
+            <td>{{current_entry.2.8.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.2.9.msn_pn}}</td>
+            <td>{{current_entry.2.9.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.2.10.msn_pn}}</td>
+            <td>{{current_entry.2.10.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.2.11.msn_pn}}</td>
+            <td>{{current_entry.2.11.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.2.12.msn_pn}}</td>
+            <td>{{current_entry.2.12.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.2.13.msn_pn}}</td>
+            <td>{{current_entry.2.13.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.2.14.msn_pn}}</td>
+            <td>{{current_entry.2.14.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.2.15.msn_pn}}</td>
+            <td>{{current_entry.2.15.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.2.16.msn_pn}}</td>
+            <td>{{current_entry.2.16.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.2.17.msn_pn}}</td>
+            <td>{{current_entry.2.17.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.2.18.msn_pn}}</td>
+            <td>{{current_entry.2.18.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.2.19.msn_pn}}</td>
+            <td>{{current_entry.2.19.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.2.20.msn_pn}}</td>
+            <td>{{current_entry.2.20.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.2.21.msn_pn}}</td>
+            <td>{{current_entry.2.21.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.2.22.msn_pn}}</td>
+            <td>{{current_entry.2.22.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.2.23.msn_pn}}</td>
+            <td>{{current_entry.2.23.msn_sn}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Power Housing</th>
+            <td>EMACS</td>
+            <td>MIK2-5C01V4V</td>
+            <td>{{entry_cnt.3}}</td>
+            <td>{{current_entry.3.0.msn_pn}}</td>
+            <td>{{current_entry.3.0.msn_sn}}</td>
+        </tr>
+        <tr>
+            <th scope="row" rowspan="2">power_supply</th>
+            <td rowspan="2">EMACS</td>
+            <td rowspan="2"></td>
+            <td rowspan="2">{{entry_cnt.4}}</td>
+            <td>{{current_entry.4.0.msn_pn}}</td>
+            <td>{{current_entry.4.0.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.4.1.msn_pn}}</td>
+            <td>{{current_entry.4.1.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td rowspan="52">Compute</br>Node</br></td>
+            <th scope="row" rowspan="2">Chassis</th>
+            <td rowspan="2">AIC</td>
+            <td rowspan="2"></td>
+            <td rowspan="2">{{entry_cnt.5}}</td>
+            <td>{{current_entry.5.0.msn_pn}}</td>
+            <td>{{current_entry.5.0.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.5.1.msn_pn}}</td>
+            <td>{{current_entry.5.1.msn_sn}}</td>
+        </tr>
+        <tr>
+            <th scope="row" rowspan="4">CPU</th>
+            <td rowspan="4">Intel</td>
+            <td rowspan="4"></td>
+            <td rowspan="4">{{entry_cnt.6}}</td>
+            <td>{{current_entry.6.0.msn_pn}}</td>
+            <td>{{current_entry.6.0.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.6.1.msn_pn}}</td>
+            <td>{{current_entry.6.1.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.6.2.msn_pn}}</td>
+            <td>{{current_entry.6.2.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.6.3.msn_pn}}</td>
+            <td>{{current_entry.6.3.msn_sn}}</td>
+        </tr>
+        <tr>
+            <th scope="row" rowspan="16">DRAM</th>
+            <td rowspan="16">SK Hynix</td>
+            <td rowspan="16"></td>
+            <td rowspan="16">{{entry_cnt.7}}</td>
+            <td>{{current_entry.7.0.msn_pn}}</td>
+            <td>{{current_entry.7.0.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.7.1.msn_pn}}</td>
+            <td>{{current_entry.7.1.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.7.2.msn_pn}}</td>
+            <td>{{current_entry.7.2.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.7.3.msn_pn}}</td>
+            <td>{{current_entry.7.3.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.7.4.msn_pn}}</td>
+            <td>{{current_entry.7.4.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.7.5.msn_pn}}</td>
+            <td>{{current_entry.7.5.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.7.6.msn_pn}}</td>
+            <td>{{current_entry.7.6.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.7.7.msn_pn}}</td>
+            <td>{{current_entry.7.7.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.7.8.msn_pn}}</td>
+            <td>{{current_entry.7.8.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.7.9.msn_pn}}</td>
+            <td>{{current_entry.7.9.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.7.10.msn_pn}}</td>
+            <td>{{current_entry.7.10.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.7.11.msn_pn}}</td>
+            <td>{{current_entry.7.11.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.7.12.msn_pn}}</td>
+            <td>{{current_entry.7.12.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.7.13.msn_pn}}</td>
+            <td>{{current_entry.7.13.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.7.14.msn_pn}}</td>
+            <td>{{current_entry.7.14.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.7.15.msn_pn}}</td>
+            <td>{{current_entry.7.15.msn_sn}}</td>
+        </tr>
+        <tr>
+            <th scope="row" rowspan="2">MainBoard</th>
+            <td rowspan="2">Intel</td>
+            <td rowspan="2"></td>
+            <td rowspan="2">{{entry_cnt.8}}</td>
+            <td>{{current_entry.8.0.msn_pn}}</td>
+            <td>{{current_entry.8.0.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.8.1.msn_pn}}</td>
+            <td>{{current_entry.8.1.msn_sn}}</td>
+        </tr>
+        <tr>
+            <th scope="row" rowspan="2">RMM4 Light</th>
+            <td rowspan="2">Intel</td>
+            <td rowspan="2"></td>
+            <td rowspan="2">{{entry_cnt.9}}</td>
+            <td>{{current_entry.9.0.msn_pn}}</td>
+            <td>{{current_entry.9.0.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.9.1.msn_pn}}</td>
+            <td>{{current_entry.9.1.msn_sn}}</td>
+        </tr>
+        <tr>
+            <th scope="row" rowspan="4">SATADOM</th>
+            <td rowspan="4">Innodisk</td>
+            <td rowspan="4"></td>
+            <td rowspan="4">{{entry_cnt.10}}</td>
+            <td>{{current_entry.10.0.msn_pn}}</td>
+            <td>{{current_entry.10.0.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.10.1.msn_pn}}</td>
+            <td>{{current_entry.10.1.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.10.2.msn_pn}}</td>
+            <td>{{current_entry.10.2.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.10.3.msn_pn}}</td>
+            <td>{{current_entry.10.3.msn_sn}}</td>
+        </tr>
+        <tr>
+            <th scope="row" rowspan="2">Bridge Board</th>
+            <td rowspan="2">AIC</td>
+            <td rowspan="2"></td>
+            <td rowspan="2">{{entry_cnt.11}}</td>
+            <td>{{current_entry.11.0.msn_pn}}</td>
+            <td>{{current_entry.11.0.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.11.1.msn_pn}}</td>
+            <td>{{current_entry.11.1.msn_sn}}</td>
+        </tr>
+        <tr>
+            <th scope="row" rowspan="4">Riser Card(Left)</th>
+            <td rowspan="4">AIC</td>
+            <td rowspan="4"></td>
+            <td rowspan="4">{{entry_cnt.12}}</td>
+            <td>{{current_entry.12.0.msn_pn}}</td>
+            <td>{{current_entry.12.0.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.12.1.msn_pn}}</td>
+            <td>{{current_entry.12.1.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.12.2.msn_pn}}</td>
+            <td>{{current_entry.12.2.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.12.3.msn_pn}}</td>
+            <td>{{current_entry.12.3.msn_sn}}</td>
+        </tr>
+        <tr>
+            <th scope="row" rowspan="4">FC HBA</th>
+            <td rowspan="4">Qlogic</td>
+            <td rowspan="4"></td>
+            <td rowspan="4">{{entry_cnt.13}}</td>
+            <td>{{current_entry.13.0.msn_pn}}</td>
+            <td>{{current_entry.13.0.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.13.1.msn_pn}}</td>
+            <td>{{current_entry.13.1.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.13.2.msn_pn}}</td>
+            <td>{{current_entry.13.2.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.13.3.msn_pn}}</td>
+            <td>{{current_entry.13.3.msn_sn}}</td>
+        </tr>
+        <tr>
+            <th scope="row" rowspan="2">Riser Card(Right)</th>
+            <td rowspan="2">AIC</td>
+            <td rowspan="2"></td>
+            <td rowspan="2">{{entry_cnt.14}}</td>
+            <td>{{current_entry.14.0.msn_pn}}</td>
+            <td>{{current_entry.14.0.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.14.1.msn_pn}}</td>
+            <td>{{current_entry.14.1.msn_sn}}</td>
+        </tr>
+        <tr>
+            <th scope="row" rowspan="2">Host Bus Adapter</th>
+            <td rowspan="2">LSI</td>
+            <td rowspan="2"></td>
+            <td rowspan="2">{{entry_cnt.15}}</td>
+            <td>{{current_entry.15.0.msn_pn}}</td>
+            <td>{{current_entry.15.0.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.15.1.msn_pn}}</td>
+            <td>{{current_entry.15.1.msn_sn}}</td>
+        </tr>
+        <tr>
+            <th scope="row" rowspan="2">NTB</th>
+            <td rowspan="2">AIC</td>
+            <td rowspan="2"></td>
+            <td rowspan="2">{{entry_cnt.16}}</td>
+            <td>{{current_entry.16.0.msn_pn}}</td>
+            <td>{{current_entry.16.0.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.16.1.msn_pn}}</td>
+            <td>{{current_entry.16.1.msn_sn}}</td>
+        </tr>
+        <tr>
+            <th scope="row" rowspan="2">NVRAM</th>
+            <td rowspan="2">Netlist</td>
+            <td rowspan="2"></td>
+            <td rowspan="2">{{entry_cnt.17}}</td>
+            <td>{{current_entry.17.0.msn_pn}}</td>
+            <td>{{current_entry.17.0.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.17.1.msn_pn}}</td>
+            <td>{{current_entry.17.1.msn_sn}}</td>
+        </tr>
+        <tr>
+            <th scope="row" rowspan="4">FAN</th>
+            <td rowspan="4">SANYO DENKI</td>
+            <td rowspan="4"></td>
+            <td rowspan="4">{{entry_cnt.18}}</td>
+            <td>{{current_entry.18.0.msn_pn}}</td>
+            <td>{{current_entry.18.0.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.18.1.msn_pn}}</td>
+            <td>{{current_entry.18.1.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.18.2.msn_pn}}</td>
+            <td>{{current_entry.18.2.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td>{{current_entry.18.3.msn_pn}}</td>
+            <td>{{current_entry.18.3.msn_sn}}</td>
+        </tr>
+        <tr>
+            <td rowspan="2">비고</td>
+            <th scope="row">GAYA담당자</th>
+            <td colspan="5">{{ha201tp.pro_emp.emp_name}}</td>
+        </tr>
+        <tr>
+            <td colspan="6">{{ha201tp.pro_note|linebreaks}}</td>
+        </tr>
+    </tbody>
+</table>
+<ul>
+    {% if prev_entry %}
+        <a href="/erp/mgmt/read/ha201_tp_read/{{prev_entry.id}}">이전 글 ()</a>
+    {% endif %}
+
+    {% if next_entry %}
+        <a href="/erp/mgmt/read/ha201_tp_read/{{next_entry.id}}">다음 글 ()</a>
+    {% endif %}
+</ul>
+{% endblock content %}

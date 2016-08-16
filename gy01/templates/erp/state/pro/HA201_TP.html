@@ -1,0 +1,68 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA HA201_TP 현황</h2>
+<HR width="960px" size="3">
+<h4>S/N 현황 [ {{ha201tp_ready_cnt}} ]</h4>
+<table class="type01">
+    <thead>
+    <tr>
+        <th style="width:60px;" scope="cols" rowspan="2">번호</th>
+        <th style="width:300px;" scope="cols">P/N</th>
+        <th style="width:300px;" scope="cols">S/N</th>
+        <th style="width:300px;" scope="cols">담당자</th>
+    </tr>
+    <tr>
+        <th style="width:300px;" scope="cols">제품상태</th>
+        <th style="width:300px;" scope="cols">생산현황</th>
+        <th style="width:300px;" scope="cols">출고상태</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if ha201tp_ready_cnt != 0 %}
+        <!--HA201_TP 목록화-->
+        {% for ha201tp in ha201tp_ready %}
+            <tr>
+                <td rowspan="2">{{ha201tp.id}}</td>
+                <td>{{ha201tp.pro_pn}}</td>
+                <td>{{ha201tp.pro_sn}}</td>
+                <td>{{ha201tp.pro_emp.emp_name}}</td>
+            </tr>
+            <tr>
+                {% if ha201tp.pro_state != 0 %}
+                    <td>이상있음.</td>
+                {% else %}
+                    <td>이상없음.</td>
+                {% endif %}
+                {% if ha201tp.pro_using != 0 %}
+                    {% if ha201tp.pro_using != 1 %}
+                        {% if ha201tp.pro_using != 2 %}
+                            {% if ha201tp.pro_using != 3 %}
+                                <td>생산 완료</td>
+                            {% else %}
+                                <td>포장 중</td>
+                            {% endif %}
+                        {% else %}
+                            <td>검증 중</td>
+                        {% endif %}
+                    {% else %}
+                        <td>조립 중</td>
+                    {% endif %}
+                {% else %}
+                    <td>생산대기 중</td>
+                {% endif %}
+                {% if ha201tp.pro_out == 0 %}
+                    <td>출고대기 중</td>
+                {% else %}
+                    <td>출고 완료</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr><td rowspan="2" colspan="4">No Data...</td></tr>
+    {% endif %}
+    </tbody>
+</table>
+<HR width="960px" size="3">
+{% endblock content %}

@@ -1,0 +1,55 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA 직원</h2>
+<table class="type03">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">항목</th>
+        <th style="width:800px;" scope="cols">내용</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">이름</th>
+            <td>{{current_entry.emp_name}}</td>
+        </tr>
+        <tr>
+            <th scope="row">직급</th>
+            <td>{{current_entry.emp_rank}}</td>
+        </tr>
+        <tr>
+            <th scope="row">전화</th>
+            <td>{{current_entry.emp_phone}}</td>
+        </tr>
+        <tr>
+            <th scope="row">E-Mail</th>
+            <td>{{current_entry.emp_email}}</td>
+        </tr>
+        <tr>
+            <th scope="row">주소</th>
+            <td>{{current_entry.emp_address}}</td>
+        </tr>
+        <tr>
+            <th scope="row">업무</th>
+            <td>{{current_entry.emp_job}}</td>
+        </tr>
+        <tr>
+            <th scope="row">비고</th>
+            <td>{{current_entry.emp_note|linebreaks}}</td>
+        </tr>
+    </tbody>
+</table>
+<ul>
+    <!--이전 글이 있는 경우-->
+    {% if prev_entry %}
+        <a href="/erp/mgmt/read/emp_read/{{prev_entry.id}}">이전 글 ()</a>
+    {% endif %}
+
+    <!--다음 글이 있는 경우-->
+    {% if next_entry %}
+        <a href="/erp/mgmt/read/emp_read/{{next_entry.id}}">다음 글 ()</a>
+    {% endif %}
+</ul>
+{% endblock content %}

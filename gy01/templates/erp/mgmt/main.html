@@ -1,0 +1,43 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+
+<table width="960px" align="center">
+    <tr><td>
+            <ul id="green">
+                <li class="current"><strong>관리</strong><span></span></li>
+                <li><a href="/erp/mgmt/emp.html" title="">직원<span>직원정보를 확인하고 등록할 수 있습니다.</span></a></li>
+                <li><a href="/erp/mgmt/cus.html" title="">고객<span>고객정보를 확인하고 등록할 수 있습니다.</span></a></li>
+                <li><a href="/erp/mgmt/ord.html" title="">주문<span>주문정보를 확인하고 등록할 수 있습니다.</span></a></li>
+                <li><a href="/erp/mgmt/pro.html" title="">제품<span>제품정보를 확인하고 등록할 수 있습니다.</span></a></li>
+                <li><a href="/erp/mgmt/mtr.html" title="">자재<span>자재정보를 확인하고 등록할 수 있습니다.</span></a></li>
+                <li><a href="/erp/mgmt/msn.html" title="">자재S/N<span>자재S/N정보를 확인하고 등록할 수 있습니다.</span></a></li>
+            </ul>
+    </td></tr>
+</table>
+<center>
+<h2>GAYADATA 관리</h2>
+<table class="type01">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">메뉴</th>
+        <th style="width:800px;" scope="cols">정보</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% if gayacus %}
+            {% for cus in gayacus %}
+                <tr>
+                        <th scope="row">고객</th>
+                        <td>{{cus.id}} | {{cus.cus_name}} | {{cus.cus_phone}} | {{cus.cus_rsps}} | {{cus.cus_rphone}}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <th scope="row">고객</th>
+                <td>No Data...</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
+{% endblock content %}

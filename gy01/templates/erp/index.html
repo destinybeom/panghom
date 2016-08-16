@@ -1,0 +1,125 @@
+<!--로그인 후 첫 페이지-->
+{% extends "base_erp.html" %}
+
+{% block content %}
+{% load static %}
+<style type="text/css">
+  .line01{border-top:2px solid red;}
+  .line02{border-bottom:2px solid red;}
+</style>
+<table width="960px" align="center">
+    <tr>
+        <td class="line02" colspan="7" align="center">
+            <h2>GAYADATA 생산흐름도</h2>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <font size="5">주문접수</font>
+        </td>
+        <td>
+            <img width="50px" src="{% static "arrow.png" %}" />
+        </td>
+        <td align="center">
+            <a href="/erp/mgmt/write/ord.html"><font size="5">주문등록</font></a>
+        </td>
+        <td>
+            <img width="50px" src="{% static "arrow.png" %}" />
+        </td>
+        <td align="center">
+            <font size="5">자재구입</font>
+        </td>
+        <td>
+            <img width="50px" src="{% static "arrow.png" %}" />
+        </td>
+        <td align="center">
+            <a href="/erp/mgmt/write/mtr.html"><font size="5">자재정보등록</font></a>
+        </td>
+    </tr>
+    <tr>
+        <td colspan='6'>
+        </td>
+        <td align="center">
+            <img width="50px" style="filter:flipv();transform:rotate(90deg);" src="{% static "arrow.png" %}" />
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <a href="/erp/state/write/asr02.html"><font size="5">조립완료등록</font></a>
+        </td>
+        <td>
+            <img width="50px" style="filter:flipv();transform:rotate(180deg);" src="{% static "arrow.png" %}" />
+        </td>
+        <td align="center">
+            <a href="/erp/state/write/asr01.html"><font size="5">생산시작등록</font></a>
+        </td>
+        <td>
+            <img width="50px" style="filter:flipv();transform:rotate(180deg);" src="{% static "arrow.png" %}" />
+        </td>
+        <td align="center">
+            <font size="5">제품S/N등록</font></br>
+            <a href="/erp/mgmt/write/ha201_tp.html"><font size="5">HA201_TP</font></a>
+        </td>
+        <td>
+            <img width="50px" style="filter:flipv();transform:rotate(180deg);" src="{% static "arrow.png" %}" />
+        </td>
+        <td align="center">
+            <a href="/erp/mgmt/write/msn.html"><font size="5">자재S/N등록</font></a>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <img width="50px" style="filter:flipv();transform:rotate(90deg);" src="{% static "arrow.png" %}" />
+        </td>
+        <td colspan='6'>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <a href="/erp/state/write/isr.html"><font size="5">검증완료등록</font></a>
+        </td>
+        <td>
+            <img width="50px" src="{% static "arrow.png" %}" />
+        </td>
+        <td align="center">
+            <a href="/erp/state/write/pcr.html"><font size="5">포장완료등록</font></a>
+        </td>
+        <td>
+            <img width="50px" src="{% static "arrow.png" %}" />
+        </td>
+        <td align="center">
+            <a href="/erp/state/write/orr.html"><font size="5">주문할당등록</font></a>
+        </td>
+        <td>
+            <img width="50px" src="{% static "arrow.png" %}" />
+        </td>
+        <td align="center">
+            <a href="/erp/state/write/dlr.html"><font size="5">출고완료등록</font></a>
+        </td>
+    </tr>
+    <tr>
+        <td class="line01" colspan="7">
+        </td>
+    </tr>
+</table>
+<center>
+<h2>GAYADATA 공지사항</h2>
+<table class="type01">
+    <thead>
+    <tr>
+        <th style="width:60px;" scope="cols">번호</th>
+        <th style="width:750px;" scope="cols">제목</th>
+        <th style="width:150px;" scope="cols">작성자</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for scc in gayascc %}
+        <tr>
+            <td>{{scc.id}}</td>
+            <td>{{scc.scc_title}}</td>
+            <td>{{scc.scc_name}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

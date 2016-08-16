@@ -1,0 +1,56 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<table>
+    <tr>
+        <td width="100px"></td>
+        <td width="760px" align="center"><h2>GAYADATA Linux</h2></td>
+        <td width="100px" align="right" valign="bottom"><a href="/erp/support/write/stl.html">Write</a></td>
+    </tr>
+</table>
+<table class="type02">
+    <thead>
+    <tr>
+        <th style="width:60px;" scope="cols">번호</th>
+        <th style="width:750px;" scope="cols">제목</th>
+        <th style="width:150px;" scope="cols">작성자</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if gayastl %}
+        {% for stl in gayastl %}
+            <tr>
+                <td>{{stl.id}}</td>
+                <td><a href="/erp/support/read/stl_read/{{stl.id}}">{{stl.stl_title}}</td>
+                <td>{{stl.stl_name}}</td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan=3>No data...</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+{% if total_page > 1 %}
+    {% if prev_page %}
+        <a href="/erp/support/stl/{{prev_page}}">이전 </a>
+    {% endif %}
+    {% for p in page_list %}
+        {% if current_page == p %}
+            <a href="/erp/support/stl/{{p}}"><font size="5"><strong>{{p}}</strong></font></a>,
+        {% else %}
+            <a href="/erp/support/stl/{{p}}">{{p}}</a>,
+        {% endif %}
+    {% endfor %}
+        {% if current_page == total_page %}
+            ... <a href="/erp/support/stl/{{total_page}}"><font size="5"><strong>{{total_page}}</strong></font></a>
+        {% else %}
+            ... <a href="/erp/support/stl/{{total_page}}">{{total_page}}</a>
+        {% endif %}
+    {% if next_page %}
+        <a href="/erp/support/stl/{{next_page}}"> 다음</a>
+    {% endif %}
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,59 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA HA201TP 자재현황</h2>
+<HR width="960px" size="3">
+<table class="type01">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols" rowspan="3">구분</th>
+        <th style="width:250px;" scope="cols">자재명</th>
+        <th style="width:250px;" scope="cols">제조사</th>
+        <th style="width:150px;" scope="cols">담당자</th>
+        <th style="width:150px;" scope="cols">구매수량</th>
+    </tr>
+    <tr>
+        <th style="width:250px;" scope="cols">등록수량</th>
+        <th style="width:250px;" scope="cols">미등록수량</th>
+        <th style="width:300px;" scope="cols" colspan="2">출고수량</th>
+    </tr>
+    <tr>
+        <th align="center" style="width:250px;" scope="cols" colspan="4">자재 사용 제품 목록</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if ha201tpCnt != 0 %}
+        <!--넘겨받은 dictionary로 자재 정보 표시-->
+        {% for gayamtr, val in infoDic.iteritems %}
+            <tr>
+                <td rowspan="3">{{gayamtr.0.ha201tp_msn.msn_mtr.mtr_class}}</td>
+                <td>{{gayamtr.0.ha201tp_msn.msn_mtr.mtr_name}}</td>
+                <td>{{gayamtr.0.ha201tp_msn.msn_mtr.mtr_maker}}</td>
+                <td>{{gayamtr.0.ha201tp_msn.msn_mtr.mtr_emp.emp_name}}</td>
+                <td>{{val.0}}</td>
+            </tr>
+            <tr>
+                <td>{{val.1}}</td>
+                <td>{{val.2}}</td>
+                <td colspan="2">{{val.3}}</td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+                    자재 사용 제품
+                    </a><div style="DISPLAY: none">
+                        {% for mtr in gayamtr %}
+                            <span>{{mtr.ha201tp_sn.ha201tp_sn}}, </span>
+                        {% endfor %}
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr><td colspan="5">No Data...</td></tr>
+    {% endif %}
+    </tbody>
+</table>
+<HR width="960px" size="3">
+{% endblock content %}

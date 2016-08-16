@@ -1,0 +1,45 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA 제품</h2>
+<table class="type03">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">항목</th>
+        <th style="width:800px;" scope="cols">내용</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">제품명</th>
+            <td>{{current_entry.pro_name}}</td>
+        </tr>
+        <tr>
+            <th scope="row">제품번호</th>
+            <td>{{current_entry.pro_pname}}</td>
+        </tr>
+        <tr>
+            <th scope="row">제품정보</th>
+            <td>{{current_entry.pro_info|linebreaks }}</td>
+        </tr>
+        <tr>
+            <th scope="row">GAYA담당자</th>
+            <td>{{current_entry.pro_emp.emp_name}}</td>
+        </tr>
+        <tr>
+            <th scope="row">비고</th>
+            <td>{{current_entry.pro_note|linebreaks}}</td>
+        </tr>
+    </tbody>
+</table>
+<ul>
+    {% if prev_entry %}
+        <a href="/erp/mgmt/read/pro_read/{{prev_entry.id}}">이전 글 ()</a>
+    {% endif %}
+
+    {% if next_entry %}
+        <a href="/erp/mgmt/read/pro_read/{{next_entry.id}}">다음 글 ()</a>
+    {% endif %}
+</ul>
+{% endblock content %}

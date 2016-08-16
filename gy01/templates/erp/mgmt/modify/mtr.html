@@ -1,0 +1,59 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA 자재</h2>
+<table class="type03">
+    <thead>
+    <tr>
+        <th style="width:160px;" scope="cols">항목</th>
+        <th style="width:800px;" scope="cols">내용</th>
+    </tr>
+    </thead>
+    <tbody>
+        <form method="post" action="/erp/mgmt/modify/mtr/">{% csrf_token %}
+            <tr>
+                <th scope="row">자재명</th>
+                <td><input type="text" id="mtr_name" name="mtr_name" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">구입수량</th>
+                <td><input type="text" id="mtr_total" name="mtr_total" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">제조사</th>
+                <td><input type="text" id="mtr_maker" name="mtr_maker" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">구입처</th>
+                <td><input type="text" id="mtr_purchase" name="mtr_purchase" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">구입날짜</th>
+                <td><input type="text" id="mtr_purchaseday" name="mtr_purchaseday" size="60" maxlength="60" />ex)yyyy-mm-dd</td>
+            </tr>
+            <tr>
+                <th scope="row">보관장소</th>
+                <td><input type="text" id="mtr_repository" name="mtr_repository" size="100" maxlength="100" /></td>
+            </tr>
+            <tr>
+                <th scope="row">GAYA담당자</th>
+                <td>
+                    <select name="mtr_emp" id="mtr_emp">
+                        {% for emp in gayaemp %}
+                        <option value="{{emp.id}}">{{emp.emp_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">비고</th>
+                <td><textarea id="mtr_note" name="mtr_note" cols="100" rows="10" ></textarea></td>
+            </tr>
+            <tr>
+                <td colspan=2><input type="submit" value="등록" /></td>
+            </tr>
+        </form>
+    </tbody>
+</table>
+{% endblock content %}

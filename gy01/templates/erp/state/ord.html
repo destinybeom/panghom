@@ -1,0 +1,170 @@
+{% extends "base_erp.html" %}
+
+{% block content %}
+<center>
+<h2>GAYADATA 주문현황</h2>
+<HR width="960px" size="3">
+<a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">
+<h3><li>주문 처리 완료 [ {{cOrd_cnt}} ]</li></h3>
+</a><div style="DISPLAY: none">
+    <table class="type01">
+        <thead>
+        <tr>
+            <th style="width:60px;" scope="cols">번호</th>
+            <th style="width:900px;" scope="cols">주문</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--주문이 있을 경우-->
+        {% if cOrd_cnt != 0 %}
+            <!--완료된 주문을 목록화-->
+            {% for ord in complete_ord %}
+                <tr>
+                    <td>{{ord.id}}</td>
+                    <td><a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">{{ord.ord_title}}
+                    </a><div style="DISPLAY: none">
+                        <table class="type01">
+                            <thead>
+                            <tr>
+                                <th style="width:160px;" scope="cols">항목</th>
+                                <th style="width:700px;" scope="cols">내용</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">제품</th>
+                                <td>{{ord.ord_pro.pro_name}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">고객</th>
+                                <td>{{ord.ord_cus.cus_name}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">GAYA담당자</th>
+                                <td>{{ord.ord_emp.emp_name}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">주문수량</th>
+                                <td>{{ord.ord_total}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div></td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr><td colspan=2>No Data...</td></tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+<HR width="960px" size="3">
+<h3><li>주문 처리 중... [ {{aOrd_cnt}} ]</li></h3>
+<table class="type01">
+    <thead>
+    <tr>
+        <th style="width:60px;" scope="cols">번호</th>
+        <th style="width:900px;" scope="cols">주문</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!--처리 중인 주문이 있는 경우-->
+    {% if aOrd_cnt != 0 %}
+        <!--처리 중인 주문을 목록화-->
+        {% for ord, val in assign_ord.iteritems %}
+            <tr>
+                <td>{{ord.id}}</td>
+                <td><a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">{{ord.ord_title}}
+                </a><div style="DISPLAY: none">
+                    <table class="type01">
+                        <thead>
+                        <tr>
+                            <th style="width:160px;" scope="cols">항목</th>
+                            <th style="width:700px;" scope="cols">내용</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">제품</th>
+                            <td>{{ord.ord_pro.pro_name}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">고객</th>
+                            <td>{{ord.ord_cus.cus_name}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">GAYA담당자</th>
+                            <td>{{ord.ord_emp.emp_name}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">주문수량</th>
+                            <td>{{ord.ord_total}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">진행상황</th>
+                            <td>출고 준비 완료 : {{val.0}} | 출고완료 : {{val.1}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div></td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr><td colspan=2>No Data...</td></tr>
+    {% endif %}
+    </tbody>
+</table>
+<HR width="960px" size="3">
+<h3><li>주문 처리 대기 중... [ {{rOrd_cnt}} ]</li></h3>
+<table class="type01">
+    <thead>
+    <tr>
+        <th style="width:60px;" scope="cols">번호</th>
+        <th style="width:900px;" scope="cols">주문</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!--처리 대기 중인 주문이 있는 경우-->
+    {% if rOrd_cnt != 0 %}
+        <!--처리 대기 중인 주문 목록화-->
+        {% for ord in ready_ord %}
+            <tr>
+                <td>{{ord.id}}</td>
+                <td><a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)">{{ord.ord_title}}
+                </a><div style="DISPLAY: none">
+                    <table class="type01">
+                        <thead>
+                        <tr>
+                            <th style="width:160px;" scope="cols">항목</th>
+                            <th style="width:700px;" scope="cols">내용</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">제품</th>
+                            <td>{{ord.ord_pro.pro_name}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">고객</th>
+                            <td>{{ord.ord_cus.cus_name}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">GAYA담당자</th>
+                            <td>{{ord.ord_emp.emp_name}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">주문수량</th>
+                            <td>{{ord.ord_total}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div></td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr><td colspan=2>No Data...</td></tr>
+    {% endif %}
+    </tbody>
+</table>
+<HR width="960px" size="3">
+{% endblock content %}
